@@ -46,8 +46,6 @@ To create an intelligent, data-driven platform that helps travelers discover and
 - **Holberton School Tirana:** Academic evaluation and Demo Day presentation
 - **Development Team:** Project execution and delivery
 
-**Team Roles:**
-
 ## Team Members & Roles
 
 **Alba Eftimi** — Full-Stack Developer  
