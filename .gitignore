@@ -1,0 +1,131 @@
+# ==========================================
+# InnSight Project .gitignore
+# ==========================================
+
+# ============ DATA FILES ============
+# Raw and processed data (NEVER commit)
+data/
+backend/data/
+*.csv
+*.geojson
+*.json
+!package.json
+!package-lock.json
+
+# Generated wordcloud images
+**/wordcloud_images/
+*.png
+*.jpg
+*.jpeg
+
+# ============ PYTHON ============
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+*.virtualenv
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ============ DATABASE ============
+# MongoDB data
+mongodb_data/
+*.db
+*.sqlite3
+
+# ============ LOGS ============
+logs/
+*.log
+*.log.*
+
+# ============ ENVIRONMENT ============
+.env
+.env.local
+.env.*.local
+*.env
+
+# ============ FRONTEND ============
+# Node modules
+node_modules/
+frontend/node_modules/
+
+# React build
+frontend/build/
+/build
+
+# ============ IDE / EDITORS ============
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ============ SYSTEM FILES ============
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+eDesktop.ini
+
+# Linux
+.directory
+
+# ============ MISC ============
+# Backup files
+*.bak
+*.backup
+*.tmp
+*.temp
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+
+# Documentation builds
+docs/_build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Repomix output
+repomix-output.xml
+repomix-output.txt
+m
