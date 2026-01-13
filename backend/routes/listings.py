@@ -1,10 +1,12 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 from flask_restx import Api, Resource, fields
 from utils.db import get_db
 
 
+
 listings_bp = Blueprint('listings', __name__)
 api = Api(listings_bp)
+
 
 # Flask-RESTX fields model (works with marshal_with)
 listing_model = api.model('Listing', {
@@ -20,6 +22,7 @@ listing_model = api.model('Listing', {
     'review_scores_rating': fields.Float,
     'sentiment_mean': fields.Float
 })
+
 
 
 @api.route('/listings')
@@ -53,6 +56,15 @@ class ListingsResource(Resource):
             
         except ValueError:
             return {'error': 'Invalid numeric parameter (limit, min_price, max_price)'}, 400
+        
+        # Build cache key from all parameters
+        cache_key = f"listings_{city}_{neigh}_{min_price}_{max_price}_{room_type}_{limit}"
+        cache = current_app.cache
+        
+        # Try to get from cache
+        cached_result = cache.get(cache_key)
+        if cached_result:
+            return cached_result
         
         # Build match query
         match_query = {'price': {'$gte': 0}}
@@ -97,6 +109,10 @@ class ListingsResource(Resource):
             ]
             
             results = list(db.listings_clean.aggregate(pipeline))
+            
+            # Cache for 3 minutes (listings queries vary a lot)
+            cache.set(cache_key, results, timeout=180)
+            
             return results
             
         except Exception as e:

@@ -1,26 +1,26 @@
 from flask import Flask, send_from_directory
 from flask_cors import CORS
+from flask_caching import Cache
 from config import Config
 import os
+
 
 
 # Core routes
 from routes.listings import listings_bp
 from routes.analytics import analytics_bp
-
-
-# Stubs for missing
-from routes.cities import cities_bp
 from routes.neighbourhoods import neighbourhoods_bp
 from routes.wordcloud import wordcloud_bp
+from routes.cities import cities_bp
 
-
-# NEW sentiment routes 
+# Sentiment routes 
 from routes.neighborhoodsentiment import ns_bp
 from routes.reviews_sentiment import rs_bp
 
 
+
 from utils.db import init_db
+
 
 
 def create_app():
@@ -30,17 +30,22 @@ def create_app():
     # Enable CORS for React frontend
     CORS(app, resources={r"/*": {"origins": "*"}})
     
+    # Initialize cache
+    cache = Cache(app, config={
+        'CACHE_TYPE': 'SimpleCache',
+        'CACHE_DEFAULT_TIMEOUT': 300  # 5 minutes default
+    })
+    app.cache = cache  # Make cache accessible to routes via current_app.cache
+    
     # Initialize database
     init_db(app)
     
-    # Register blueprints (SAFE - stubs don't crash)
+    # Register blueprints
     app.register_blueprint(cities_bp, url_prefix='/api')
     app.register_blueprint(listings_bp, url_prefix='/api')
     app.register_blueprint(neighbourhoods_bp, url_prefix='/api')
     app.register_blueprint(analytics_bp, url_prefix='/api')
     app.register_blueprint(wordcloud_bp, url_prefix='/api')
-    
-    # NEW: Sentiment routes
     app.register_blueprint(ns_bp, url_prefix='/api')
     app.register_blueprint(rs_bp, url_prefix='/api')
     
@@ -68,6 +73,7 @@ def create_app():
         return send_from_directory(image_path, filename)
     
     return app
+
 
 
 if __name__ == '__main__':

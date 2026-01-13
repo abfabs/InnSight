@@ -1,10 +1,12 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 from flask_restx import Api, Resource, fields
 from utils.db import get_db
 
 
+
 analytics_bp = Blueprint('analytics', __name__)
 api = Api(analytics_bp, title='Analytics API', description='InnSight price/neighborhood stats')
+
 
 
 stats_model = api.model('CityStats', {
@@ -16,21 +18,31 @@ stats_model = api.model('CityStats', {
 })
 
 
+
 @api.route('/analytics')
 class AnalyticsResource(Resource):
     @api.marshal_with(stats_model, as_list=True)
     @api.expect({'city': fields.String(default=None)})
     def get(self):
-        db = get_db()
-        
-        # SAFE parameter parsing
+        # Parse city parameter
         try:
             city = request.args.get('city')
             if not city or city.lower() not in ['amsterdam', 'prague', 'rome']:
-                city = None  # Default to all cities if invalid
+                city = None
         except Exception:
             return {'error': 'Invalid city parameter'}, 400
         
+        # Create cache key based on city parameter
+        cache_key = f'analytics_{city if city else "all"}'
+        cache = current_app.cache
+        
+        # Try to get from cache
+        cached_result = cache.get(cache_key)
+        if cached_result:
+            return cached_result
+        
+        # If not cached, run the expensive query
+        db = get_db()
         match_stage = {'price': {'$gte': 0}}
         if city:
             match_stage['city'] = city
@@ -55,7 +67,7 @@ class AnalyticsResource(Resource):
             
             # Robust fallback if percentiles fail (large arrays)
             if results[0].get('listing_count') is None:
-                results[0]['listing_count'] = db.listings_clean.countDocuments(match_stage)
+                results[0]['listing_count'] = db.listings_clean.count_documents(match_stage)
             if results[0].get('avg_price') is None:
                 avg_result = list(db.listings_clean.aggregate([
                     {'$match': match_stage}, 
@@ -74,6 +86,9 @@ class AnalyticsResource(Resource):
                 if top_neigh:
                     results[0]['top_neighbourhood'] = top_neigh[0]['_id']
                     results[0]['top_neigh_count'] = top_neigh[0]['count']
+            
+            # Cache the results for 5 minutes (300 seconds)
+            cache.set(cache_key, results, timeout=300)
             
             return results
             

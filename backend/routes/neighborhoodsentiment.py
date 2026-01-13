@@ -1,10 +1,12 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 from flask_restx import Api, Resource, fields
 from utils.db import get_db
 
 
+
 ns_bp = Blueprint('neighborhoodsentiment', __name__)
 api = Api(ns_bp)
+
 
 
 ns_model = api.model('NeighborhoodSentiment', {
@@ -18,12 +20,11 @@ ns_model = api.model('NeighborhoodSentiment', {
 })
 
 
+
 @api.route('/neighborhood-sentiment')
 class NSResource(Resource):
     @api.marshal_with(ns_model, as_list=True)
     def get(self):
-        db = get_db()
-        
         # SAFE parameter parsing
         try:
             city = request.args.get('city', 'amsterdam')
@@ -32,6 +33,18 @@ class NSResource(Resource):
         except Exception:
             return {'error': 'Invalid city parameter'}, 400
         
+        # Build cache key
+        cache_key = f'neighborhood_sentiment_{city}'
+        cache = current_app.cache
+        
+        # Check cache
+        cached_result = cache.get(cache_key)
+        if cached_result:
+            return cached_result
+        
+        # Query database if not cached
+        db = get_db()
+        
         try:
             # FIXED: snake_case collection + field
             cursor = db.neighborhood_sentiment.find({'city': city}).sort('sentimentmean', -1)
@@ -39,6 +52,9 @@ class NSResource(Resource):
             
             if not results:
                 return [], 404
+            
+            # Cache for 10 minutes (sentiment data is static)
+            cache.set(cache_key, results, timeout=600)
             
             return results
             

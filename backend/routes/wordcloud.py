@@ -1,10 +1,12 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 from flask_restx import Api, Resource, fields
 from utils.db import get_db
 
 
+
 wordcloud_bp = Blueprint('wordcloud', __name__)
 api = Api(wordcloud_bp)
+
 
 
 word_model = api.model('WordCloud', {
@@ -15,12 +17,11 @@ word_model = api.model('WordCloud', {
 })
 
 
+
 @api.route('/wordcloud')
 class WordCloudResource(Resource):
     @api.marshal_with(word_model, as_list=True, skip_none=True)
     def get(self):
-        db = get_db()
-        
         # SAFE parameter parsing
         try:
             city = request.args.get('city', 'prague')
@@ -36,6 +37,17 @@ class WordCloudResource(Resource):
         except ValueError:
             return {'error': 'Invalid limit parameter (must be number)'}, 400
         
+        # Build cache key with all parameters
+        cache_key = f'wordcloud_{city}_{neigh if neigh else "all"}_{limit}'
+        cache = current_app.cache
+        
+        # Check cache
+        cached_result = cache.get(cache_key)
+        if cached_result:
+            return cached_result
+        
+        # Query database if not cached
+        db = get_db()
         query = {'city': city}
         if neigh:
             query['neighbourhood'] = neigh
@@ -46,6 +58,9 @@ class WordCloudResource(Resource):
             
             if not results:
                 return [], 404
+            
+            # Cache for 15 minutes (word frequencies are static)
+            cache.set(cache_key, results, timeout=900)
             
             return results
             
