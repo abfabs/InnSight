@@ -17,7 +17,11 @@ from routes.cities import cities_bp
 from routes.neighborhoodsentiment import ns_bp
 from routes.reviews_sentiment import rs_bp
 
-
+# Dashboard analytics routes
+from routes.sentiment_summary import sentiment_summary_bp
+from routes.room_type_distribution import room_types_bp
+from routes.occupancy_stats import occupancy_bp
+from routes.top_hosts_route import top_hosts_bp
 
 from utils.db import init_db
 
@@ -48,6 +52,12 @@ def create_app():
     app.register_blueprint(wordcloud_bp, url_prefix='/api')
     app.register_blueprint(ns_bp, url_prefix='/api')
     app.register_blueprint(rs_bp, url_prefix='/api')
+    
+    # Dashboard analytics routes
+    app.register_blueprint(sentiment_summary_bp, url_prefix='/api')
+    app.register_blueprint(room_types_bp, url_prefix='/api')
+    app.register_blueprint(occupancy_bp, url_prefix='/api')
+    app.register_blueprint(top_hosts_bp, url_prefix='/api')
     
     @app.route('/')
     def health_check():
