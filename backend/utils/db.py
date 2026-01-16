@@ -19,7 +19,7 @@ def init_db(app):
     db = app.config['MONGO_DB']
     # FIXED: Use snake_case collection names to match CSV uploads
     db.listings_clean.create_index([("location", "2dsphere")])
-    db.listings_clean.create_index([("city", 1), ("neighbourhood", 1)])
+    db.listings_clean.create_index([("city", 1), ("neighborhood", 1)])
     db.listings_clean.create_index([("city", 1), ("price", 1)])
     db.neighborhood_sentiment.create_index([("city", 1)])
     print("✅ MongoDB connected + indexes created (innsight_db)")

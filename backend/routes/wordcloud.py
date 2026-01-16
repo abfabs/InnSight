@@ -1,68 +1,86 @@
-from flask import Blueprint, request, current_app
-from flask_restx import Api, Resource, fields
+from flask import request, current_app
+from flask_restx import Namespace, Resource
 from utils.db import get_db
 
+ns = Namespace("wordcloud", path="/api/wordcloud", description="Wordcloud endpoints")
 
 
-wordcloud_bp = Blueprint('wordcloud', __name__)
-api = Api(wordcloud_bp)
+def _image_url(city: str, neighborhood: str | None) -> str:
+    """
+    Matches your existing static route:
+      /static/wordclouds/<city>/<filename>
+
+    Your ETL saved:
+      - neighborhood images: "<Neighborhood>.png"
+      - city image: "<city>_overall.png"
+    """
+    if neighborhood:
+        filename = f"{neighborhood}.png"
+    else:
+        filename = f"{city}_overall.png"
+    return f"/static/wordclouds/{city}/{filename}"
 
 
-
-word_model = api.model('WordCloud', {
-    'city': fields.String,
-    'neighbourhood': fields.String,
-    'word': fields.String,
-    'frequency': fields.Integer
-})
-
-
-
-@api.route('/wordcloud')
+@ns.route("")
 class WordCloudResource(Resource):
-    @api.marshal_with(word_model, as_list=True, skip_none=True)
     def get(self):
-        # SAFE parameter parsing
+        """
+        Query params:
+          - city: amsterdam|prague|rome (default=prague)
+          - neighborhood: optional
+          - limit: optional (default=20, max=100)
+        Returns:
+          {
+            city,
+            neighborhood,
+            image_url,
+            words: [{word, frequency, neighborhood, city}, ...]
+          }
+        """
         try:
-            city = request.args.get('city', 'prague')
-            if city and city.lower() not in ['amsterdam', 'prague', 'rome']:
-                return {'error': 'City must be amsterdam, prague, or rome'}, 400
-            
-            neigh = request.args.get('neighbourhood')
-            limit = int(request.args.get('limit', 20))
-            
+            city = request.args.get("city", "prague")
+            if city and city.lower() not in ["amsterdam", "prague", "rome"]:
+                return {"error": "City must be amsterdam, prague, or rome"}, 400
+
+            neighborhood = request.args.get("neighborhood")
+            limit = int(request.args.get("limit", 20))
             if limit > 100:
-                limit = 100  # Sanity limit for wordclouds
-            
+                limit = 100
+            if limit < 1:
+                limit = 1
+
         except ValueError:
-            return {'error': 'Invalid limit parameter (must be number)'}, 400
-        
-        # Build cache key with all parameters
-        cache_key = f'wordcloud_{city}_{neigh if neigh else "all"}_{limit}'
+            return {"error": "Invalid limit parameter (must be number)"}, 400
+
+        cache_key = f"wordcloud_{city}_{neighborhood if neighborhood else 'all'}_{limit}"
         cache = current_app.cache
-        
-        # Check cache
-        cached_result = cache.get(cache_key)
-        if cached_result:
-            return cached_result
-        
-        # Query database if not cached
+
+        cached = cache.get(cache_key)
+        if cached:
+            return cached, 200
+
         db = get_db()
-        query = {'city': city}
-        if neigh:
-            query['neighbourhood'] = neigh
-        
+
+        query = {"city": city}
+        if neighborhood:
+            query["neighborhood"] = neighborhood
+        else:
+            # city-level words are stored with neighborhood: None in your ETL
+            query["neighborhood"] = None
+
         try:
-            cursor = db.review_words.find(query).sort('frequency', -1).limit(limit)
-            results = list(cursor)
-            
-            if not results:
-                return [], 404
-            
-            # Cache for 15 minutes (word frequencies are static)
-            cache.set(cache_key, results, timeout=900)
-            
-            return results
-            
+            cursor = db.review_words.find(query, {"_id": 0}).sort("frequency", -1).limit(limit)
+            words = list(cursor)
+
+            result = {
+                "city": city,
+                "neighborhood": neighborhood,
+                "image_url": _image_url(city, neighborhood),
+                "words": words
+            }
+
+            cache.set(cache_key, result, timeout=900)
+            return result, 200
+
         except Exception as e:
-            return {'error': f'Wordcloud query failed: {str(e)}'}, 500
+            return {"error": f"Wordcloud query failed: {str(e)}"}, 500

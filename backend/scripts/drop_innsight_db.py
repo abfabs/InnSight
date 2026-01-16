@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
 
 from pymongo import MongoClient
-import os
+from config import Config
 
-MONGO_URI = os.getenv('MONGOURI', 'mongodb://localhost:27017')
-client = MongoClient(MONGO_URI)
-db = client['innsight_db']
 
-# Drop entire DB
-client.drop_database('innsight_db')
-print("✅ innsight_db DROPPED")
+def drop_database():
+    client = MongoClient(Config.MONGO_URI)
+    client.drop_database(Config.MONGO_DB)
+    client.close()
+    print(f"✅ {Config.MONGO_DB} DROPPED")
 
-# Close
-client.close()
+
+def main():
+    drop_database()
+    return True
+
+
+if __name__ == "__main__":
+    main()

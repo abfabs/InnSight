@@ -1,25 +1,21 @@
-from flask import Blueprint, current_app
-from flask_restx import Api, Resource
+from flask import current_app
+from flask_restx import Namespace, Resource
+
+ns = Namespace("cities", path="/api/cities", description="City endpoints")
 
 
-cities_bp = Blueprint('cities', __name__)
-api = Api(cities_bp)
-
-
-@api.route('/cities')
+@ns.route("")
 class CitiesResource(Resource):
     def get(self):
         cache = current_app.cache
-        
-        # Check cache
-        cached = cache.get('cities_list')
+
+        cached = cache.get("cities_list")
         if cached:
-            return cached
-        
-        # Build response
-        result = {'cities': ['prague', 'rome', 'amsterdam']}
-        
-        # Cache for 10 minutes (this data never changes)
-        cache.set('cities_list', result, timeout=600)
-        
-        return result
+            return cached, 200
+
+        result = {"cities": ["prague", "rome", "amsterdam"]}
+
+        # Cache for 10 minutes
+        cache.set("cities_list", result, timeout=600)
+
+        return result, 200

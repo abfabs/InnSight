@@ -1,48 +1,52 @@
-from flask import Blueprint, request, current_app
-from flask_restx import Api, Resource
+from flask import request, current_app
+from flask_restx import Namespace, Resource
 from utils.db import get_db
 
-room_types_bp = Blueprint('room_types', __name__)
-api = Api(room_types_bp, title='Room Type Distribution API')
+ns = Namespace("room_types", path="/api/room-types", description="Room type distribution endpoints")
 
-@api.route('/room-types')
+
+@ns.route("")
 class RoomTypesResource(Resource):
     def get(self):
+        """
+        Query params:
+          - city: amsterdam|prague|rome (optional)
+          - level: city|neighborhood (optional)
+          - neighborhood: optional (for level=neighborhood)
+        """
         try:
-            city = request.args.get('city')
-            neighbourhood = request.args.get('neighbourhood')
-            level = request.args.get('level')
-            
-            if city and city.lower() not in ['amsterdam', 'prague', 'rome']:
-                return {'error': 'City must be amsterdam, prague, or rome'}, 400
-            
-            # Build cache key
-            cache_key = f'room_types_{city}_{neighbourhood}_{level}'
+            city = request.args.get("city")
+            neighborhood = request.args.get("neighborhood")
+            level = request.args.get("level")
+
+            if city and city.lower() not in ["amsterdam", "prague", "rome"]:
+                return {"error": "City must be amsterdam, prague, or rome"}, 400
+
+            cache_key = f"room_types_{city}_{neighborhood}_{level}"
             cache = current_app.cache
-            
-            cached_result = cache.get(cache_key)
-            if cached_result:
-                return cached_result
-            
-            # Build query
+
+            cached = cache.get(cache_key)
+            if cached:
+                return cached, 200
+
             query = {}
             if city:
-                query['city'] = city
-            if neighbourhood:
-                query['neighbourhood'] = neighbourhood
+                query["city"] = city
+            if neighborhood:
+                query["neighborhood"] = neighborhood
             if level:
-                query['level'] = level
-            
+                query["level"] = level
+
             db = get_db()
-            results = list(db.room_type_distribution.find(query, {'_id': 0}).sort('total_listings', -1))
-            
-            if not results:
-                return [], 404
-            
-            # Cache for 10 minutes
+            results = list(
+                db.room_type_distribution
+                  .find(query, {"_id": 0})
+                  .sort("total_listings", -1)
+            )
+
+            # return empty list with 200 for frontend simplicity
             cache.set(cache_key, results, timeout=600)
-            
-            return results
-            
+            return results, 200
+
         except Exception as e:
-            return {'error': f'Query failed: {str(e)}'}, 500
+            return {"error": f"Query failed: {str(e)}"}, 500

@@ -17,7 +17,7 @@ class Listing(BaseModel):
     listing_name: str = Field(..., description="Listing title")
     host_id: str = Field(..., description="Host ID")
     host_name: str = Field(..., description="Host display name")
-    neighbourhood: str = Field(..., description="Neighborhood name")
+    neighborhood: str = Field(..., description="Neighborhood name")
     city: str = Field(..., description="City (lowercase)")
     latitude: float = Field(..., description="Latitude")
     longitude: float = Field(..., description="Longitude")
@@ -46,7 +46,7 @@ class ListingResponse(BaseModel):
     listing_id: str
     listing_name: str
     host_name: str
-    neighbourhood: str
+    neighborhood: str
     latitude: float
     longitude: float
     room_type: str
@@ -62,7 +62,7 @@ EXAMPLE_LISTING = {
     "listing_name": "Central Prague Old Town Top Floor",
     "host_id": "113902",
     "host_name": "Daniel+Bea",
-    "neighbourhood": "Praha 1",
+    "neighborhood": "Praha 1",
     "city": "prague",
     "latitude": 50.08729,
     "longitude": 14.43179,

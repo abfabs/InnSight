@@ -1,61 +1,68 @@
-from flask import Blueprint, request, current_app
-from flask_restx import Api, Resource, fields
+from flask import request
+from flask_restx import Namespace, Resource
 from utils.db import get_db
+import math
 
-sentiment_summary_bp = Blueprint('sentiment_summary', __name__)
-api = Api(sentiment_summary_bp, title='Sentiment Summary API')
+ns = Namespace("sentiment_summary", path="/api/sentiment-summary", description="Sentiment summary endpoints")
 
-sentiment_model = api.model('SentimentSummary', {
-    'city': fields.String,
-    'neighbourhood': fields.String,
-    'level': fields.String,
-    'sentiment_mean': fields.Float,
-    'sentiment_median': fields.Float,
-    'total_reviews': fields.Integer,
-    'positive': fields.Float,
-    'neutral': fields.Float,
-    'negative': fields.Float
-})
 
-@api.route('/sentiment-summary')
+@ns.route("")
 class SentimentSummaryResource(Resource):
-    @api.marshal_with(sentiment_model, as_list=True)
     def get(self):
+        """
+        Query params:
+          - city: amsterdam|prague|rome (optional)
+          - level: city|neighborhood (default=city)
+          - neighborhood: optional (for level=neighborhood)
+        """
         try:
-            city = request.args.get('city')
-            neighbourhood = request.args.get('neighbourhood')
-            level = request.args.get('level')  # 'city' or 'neighbourhood'
-            
-            if city and city.lower() not in ['amsterdam', 'prague', 'rome']:
-                return {'error': 'City must be amsterdam, prague, or rome'}, 400
-            
-            # Build cache key
-            cache_key = f'sentiment_summary_{city}_{neighbourhood}_{level}'
-            cache = current_app.cache
-            
-            cached_result = cache.get(cache_key)
-            if cached_result:
-                return cached_result
-            
-            # Build query
+            city = request.args.get("city")
+            neighborhood = request.args.get("neighborhood")
+            level = request.args.get("level", "city")
+
+            if city and city.lower() not in ["amsterdam", "prague", "rome"]:
+                return {"error": "Invalid city"}, 400
+
             query = {}
             if city:
-                query['city'] = city
-            if neighbourhood:
-                query['neighbourhood'] = neighbourhood
+                query["city"] = city
+            if neighborhood:
+                query["neighborhood"] = neighborhood
             if level:
-                query['level'] = level
-            
+                query["level"] = level
+
             db = get_db()
-            results = list(db.sentiment_summary.find(query, {'_id': 0}).sort('sentiment_mean', -1))
-            
-            if not results:
-                return [], 404
-            
-            # Cache for 10 minutes
-            cache.set(cache_key, results, timeout=600)
-            
-            return results
-            
+
+            # sentiment_summary now stores counts + percentages; sort by total_reviews
+            results = list(
+                db.sentiment_summary
+                  .find(query, {"_id": 0})
+                  .sort("total_reviews", -1)
+            )
+
+            # Clean NaN values & enforce numeric types
+            for r in results:
+                # percent fields
+                for k in ["positive", "neutral", "negative"]:
+                    v = r.get(k)
+                    if isinstance(v, float) and math.isnan(v):
+                        r[k] = None
+
+                # count fields
+                for k in ["total_reviews", "positive_count", "neutral_count", "negative_count"]:
+                    v = r.get(k)
+                    if isinstance(v, float) and math.isnan(v):
+                        r[k] = 0
+                    if v is not None:
+                        try:
+                            r[k] = int(v)
+                        except Exception:
+                            r[k] = 0
+
+            return results, 200
+
         except Exception as e:
-            return {'error': f'Query failed: {str(e)}'}, 500
+            print(f"sentiment-summary error: {e}")
+            import traceback
+            traceback.print_exc()
+            return {"error": "Query failed"}, 500
