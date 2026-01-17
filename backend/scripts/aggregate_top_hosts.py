@@ -25,6 +25,28 @@ def _detect_neighborhood_field(db, city: str) -> str:
     return "neighborhood"
 
 
+def _safe_avg_rating_in_range(field_name: str, lo: float = 0.0, hi: float = 5.0):
+    """
+    NaN-proof rating average:
+    - Keeps only ratings in [lo, hi] (Airbnb rating scale is 0..5 in your DB)
+    - Everything else (null, missing, strings, NaN) becomes null and is ignored by $avg
+    """
+    return {
+        "$avg": {
+            "$cond": [
+                {
+                    "$and": [
+                        {"$gte": [f"${field_name}", lo]},
+                        {"$lte": [f"${field_name}", hi]},
+                    ]
+                },
+                f"${field_name}",
+                None,
+            ]
+        }
+    }
+
+
 def aggregate_top_hosts():
     client = MongoClient(Config.MONGO_URI)
     db = client[Config.MONGO_DB]
@@ -36,7 +58,7 @@ def aggregate_top_hosts():
 
     # speed
     db.listings_clean.create_index([("city", 1)])
-    db.listings_clean.create_index([("listing_id", 1)])
+    db.listings_clean.create_index([("host_id", 1)])
     db.top_hosts_agg.create_index([("city", 1), ("level", 1)])
     db.top_hosts_agg.create_index([("city", 1), ("neighborhood", 1)])
 
@@ -54,13 +76,12 @@ def aggregate_top_hosts():
 
         # ---------- CITY LEVEL ----------
         city_pipeline = [
-            {"$match": {"city": city, "host_name": {"$ne": None}}},
+            {"$match": {"city": city, "host_id": {"$ne": None}, "host_name": {"$ne": None}}},
             {"$group": {
                 "_id": {"host_id": "$host_id", "host_name": "$host_name"},
                 "total_listings": {"$sum": 1},
                 "avg_price": {"$avg": "$price"},
-                # protect against missing ratings
-                "avg_rating": {"$avg": {"$ifNull": [f"${rating_field}", None]}},
+                "avg_rating": _safe_avg_rating_in_range(rating_field),
             }},
             {"$sort": {"total_listings": -1}},
             {"$limit": 10},
@@ -70,11 +91,17 @@ def aggregate_top_hosts():
                 "host_name": "$_id.host_name",
                 "total_listings": 1,
                 "avg_price": {"$round": ["$avg_price", 2]},
-                "avg_rating": {"$round": ["$avg_rating", 2]},
+                "avg_rating": {
+                    "$cond": [
+                        {"$ne": ["$avg_rating", None]},
+                        {"$round": ["$avg_rating", 3]},
+                        None,
+                    ]
+                },
             }},
         ]
 
-        city_hosts = list(db.listings_clean.aggregate(city_pipeline))
+        city_hosts = list(db.listings_clean.aggregate(city_pipeline, allowDiskUse=True))
         db.top_hosts_agg.insert_one({
             "city": city,
             "neighborhood": None,
@@ -86,7 +113,7 @@ def aggregate_top_hosts():
         # ---------- NEIGHBORHOOD LEVEL ----------
         inserted = 0
         for neigh in neighborhoods:
-            match = {"city": city, "host_name": {"$ne": None}, neigh_field: neigh}
+            match = {"city": city, "host_id": {"$ne": None}, "host_name": {"$ne": None}, neigh_field: neigh}
 
             neigh_pipeline = [
                 {"$match": match},
@@ -94,7 +121,7 @@ def aggregate_top_hosts():
                     "_id": {"host_id": "$host_id", "host_name": "$host_name"},
                     "total_listings": {"$sum": 1},
                     "avg_price": {"$avg": "$price"},
-                    "avg_rating": {"$avg": {"$ifNull": [f"${rating_field}", None]}},
+                    "avg_rating": _safe_avg_rating_in_range(rating_field),
                 }},
                 {"$sort": {"total_listings": -1}},
                 {"$limit": 10},
@@ -104,11 +131,17 @@ def aggregate_top_hosts():
                     "host_name": "$_id.host_name",
                     "total_listings": 1,
                     "avg_price": {"$round": ["$avg_price", 2]},
-                    "avg_rating": {"$round": ["$avg_rating", 2]},
+                    "avg_rating": {
+                        "$cond": [
+                            {"$ne": ["$avg_rating", None]},
+                            {"$round": ["$avg_rating", 3]},
+                            None,
+                        ]
+                    },
                 }},
             ]
 
-            neigh_hosts = list(db.listings_clean.aggregate(neigh_pipeline))
+            neigh_hosts = list(db.listings_clean.aggregate(neigh_pipeline, allowDiskUse=True))
             db.top_hosts_agg.insert_one({
                 "city": city,
                 "neighborhood": neigh,  # canonical output field
@@ -124,7 +157,6 @@ def aggregate_top_hosts():
 
 
 def main():
-    """Callable entrypoint for pipeline imports."""
     aggregate_top_hosts()
     return True
 

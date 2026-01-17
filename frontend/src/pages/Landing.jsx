@@ -177,7 +177,7 @@ export default function Landing() {
             </p>
             <div className="contact-row">
               <span className="contact-label">Email</span>
-              <span className="contact-value">your@email.com</span>
+              <span className="contact-value">email@email.com</span>
             </div>
             <div className="contact-row">
               <span className="contact-label">GitHub</span>

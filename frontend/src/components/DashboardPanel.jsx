@@ -11,10 +11,12 @@ export default function DashboardPanel({ city, level, neighborhood, sentiment, r
     <div className="dash">
       <div className="dash-title">{title}</div>
 
-      <SentimentCard data={sentiment} />
-      <RoomTypesCard data={roomTypes} />
-      <OccupancyCard data={occupancy} />
-      <TopHostsCard data={topHosts} />
+      <div className="dash-stack">
+        <SentimentCard data={sentiment} />
+        <RoomTypesCard data={roomTypes} />
+        <OccupancyCard data={occupancy} />
+        <TopHostsCard data={topHosts} />
+      </div>
     </div>
   );
 }

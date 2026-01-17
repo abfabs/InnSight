@@ -10,16 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@deck.gl/layers": "^9.2.6",
+    "@deck.gl/react": "^9.2.6",
     "axios": "^1.13.2",
     "bootstrap": "^5.3.8",
     "chart.js": "^4.5.1",
     "d3": "^7.9.0",
+    "deck.gl": "^9.2.6",
     "leaflet": "^1.9.4",
+    "maplibre-gl": "^5.16.0",
     "react": "^19.2.0",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.0",
     "react-leaflet": "^5.0.0",
     "react-leaflet-cluster": "^4.0.0",
+    "react-map-gl": "^8.1.0",
     "react-router-dom": "^7.12.0",
     "recharts": "^3.6.0"
   },
