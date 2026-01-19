@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { fetchJSON } from "../api/client";
 import NeighborhoodFilter from "../components/NeighborhoodFilter";
 import MapPanel from "../components/MapPanel";
+import MapLegend from "../components/MapLegend";
 import DashboardPanel from "../components/DashboardPanel";
 
 const CITY_CENTER = {
@@ -257,13 +258,15 @@ export default function City() {
         <div className="panel panel--map">
           {loadingMap && <div className="loading loading--overlay">Loading map…</div>}
 
-          <MapPanel
-            markers={markers}
-            neighborhoodSentiment={neighSentiment}
-            viewState={viewState}
-            setViewState={setViewState}
-          />
+          <MapLegend />
+
+          <div className="map-fill">
+            <MapPanel markers={markers} viewState={viewState} setViewState={setViewState} />
+          </div>
         </div>
+
+
+
 
         <div className="panel panel--dash">
           {loadingDash ? (

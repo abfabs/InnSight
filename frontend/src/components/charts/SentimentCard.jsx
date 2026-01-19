@@ -66,7 +66,7 @@ export default function SentimentCard({ data }) {
 
   return (
     <div className="cardbox">
-      <div className="card-title-row"><h3>Sentiment</h3></div>
+      <div className="card-title-row"><h3>Sentiment Analysis</h3></div>
 
       <div className="row">
         <div className="stat">
