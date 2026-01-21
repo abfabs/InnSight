@@ -76,7 +76,7 @@ export default function OccupancyCard({ data }) {
         </div>
       ) : (
         <div className="chart chart--bar" style={{ width: "100%", height: 290, minHeight: 290 }}>
-          <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height={290}>
             <BarChart data={chartData} margin={{ top: 10, right: 10, bottom: 32, left: 0 }}>
               <defs>
                 <linearGradient id="occGradient" x1="0" y1="1" x2="0" y2="0">

@@ -7,8 +7,8 @@ export default function MapLegend() {
 
             <div className="map-legend-top-row">
                 <span className="dot dot-green" /> Top 20%
-                <span className="dot dot-mint" /> 60–80%
-                <span className="dot dot-blue" /> 40–60%
+                <span className="dot dot-blue" /> 60–80%
+                <span className="dot dot-mint" /> 40–60%
                 <span className="dot dot-amber" /> 20–40%
                 <span className="dot dot-red" /> Bottom 20%
             </div>

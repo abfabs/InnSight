@@ -27,6 +27,9 @@ export default function Header() {
           <a href="#technology" className="nav__link">
             Technology
           </a>
+          <a href="#technology" className="nav__link">
+            About
+          </a>
           <a href="#contact" className="nav__link">
             Contact
           </a>

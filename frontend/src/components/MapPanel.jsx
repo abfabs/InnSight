@@ -13,22 +13,17 @@ function quantile(sorted, q) {
   return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
 }
 
-function fmtNum(x, digits = 3) {
-  const n = Number(x);
-  if (!Number.isFinite(n)) return "–";
-  return n.toFixed(digits);
-}
-
 function clamp(n, a, b) {
   return Math.max(a, Math.min(b, n));
 }
 
-export default function MapPanel({ markers, viewState, setViewState }) {
+export default function MapPanel({ markers, allMarkers, viewState, setViewState }) {
   const FULL_CONF_REVIEWS = 10;
   const MIN_CONF_REVIEWS = 1;
 
+  // IMPORTANT: compute thresholds from full dataset (stable)
   const thresholds = useMemo(() => {
-    const rows = Array.isArray(markers) ? markers : [];
+    const rows = Array.isArray(allMarkers) && allMarkers.length ? allMarkers : (Array.isArray(markers) ? markers : []);
     const vals = rows
       .map((p) => Number(p.sentiment_mean))
       .filter((x) => Number.isFinite(x))
@@ -45,16 +40,18 @@ export default function MapPanel({ markers, viewState, setViewState }) {
       q80: quantile(vals, 0.8),
       sampleSize: vals.length,
     };
-  }, [markers]);
+  }, [allMarkers, markers]);
 
   function baseColorForMean(mean) {
     if (!Number.isFinite(mean)) return [148, 163, 184, 140];
-    if (mean <= thresholds.q20) return [220, 38, 38, 210];
-    if (mean <= thresholds.q40) return [245, 158, 11, 210];
-    if (mean <= thresholds.q60) return [37, 99, 235, 210];
-    if (mean <= thresholds.q80) return [34, 197, 94, 210];
-    return [22, 163, 74, 210];
+    if (mean <= thresholds.q20) return [185, 28, 28, 220];
+    if (mean <= thresholds.q40) return [217, 119, 6, 235];
+    if (mean <= thresholds.q60) return [37, 99, 235, 235];
+    if (mean <= thresholds.q80) return [16, 185, 129, 235];
+    return [21, 128, 61, 235];
   }
+
+
 
   function confidenceFactor(reviewCount) {
     const rc = Number(reviewCount);
@@ -69,15 +66,6 @@ export default function MapPanel({ markers, viewState, setViewState }) {
 
   function radiusForConfidence(conf) {
     return 2.2 + conf * 1.8;
-  }
-
-  function bucketLabelForMean(mean) {
-    if (!Number.isFinite(mean)) return "No sentiment";
-    if (mean <= thresholds.q20) return "Bottom 20% (worst)";
-    if (mean <= thresholds.q40) return "20–40%";
-    if (mean <= thresholds.q60) return "40–60%";
-    if (mean <= thresholds.q80) return "60–80%";
-    return "Top 20% (best)";
   }
 
   const data = useMemo(() => {
@@ -97,16 +85,10 @@ export default function MapPanel({ markers, viewState, setViewState }) {
           position: [lon, lat],
           color,
           radius: radiusForConfidence(conf),
-          bucketLabel: bucketLabelForMean(mean),
-          conf,
           listing_name: p.listing_name,
           neighborhood: p.neighborhood,
           room_type: p.room_type,
-          price: p.price,
           review_count: p.review_count,
-          sentiment_mean: p.sentiment_mean,
-          listing_id: p.listing_id,
-          city: p.city,
         };
       })
       .filter(Boolean);
@@ -171,7 +153,6 @@ export default function MapPanel({ markers, viewState, setViewState }) {
         >
           <MapGL
             mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
-            reuseMaps
             onError={(e) => console.warn("Map error:", e?.error || e)}
           />
         </DeckGL>

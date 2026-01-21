@@ -3,7 +3,8 @@
 # ==========================================
 
 # ============ DATA FILES ============
-# Raw and processed data (NEVER commit)
+
+# Raw and processed data
 data/
 backend/data/
 *.csv

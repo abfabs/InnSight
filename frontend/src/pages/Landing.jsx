@@ -58,14 +58,14 @@ export default function Landing() {
             <button className="btn btn-primary" onClick={() => nav("#cities")}>
               Explore cities
             </button>
-            <button className="btn btn-ghost" onClick={() => nav("/city/amsterdam")}>
+            {/* <button className="btn btn-ghost" onClick={() => nav("/city/amsterdam")}>
               Open demo city
-            </button>
+            </button> */}
           </div>
 
           <div className="hero-stats">
             <div className="hero-stat">
-              <div className="hero-stat__value">3</div>
+              <div className="hero-stat__value">Multiple</div>
               <div className="hero-stat__label">Cities</div>
             </div>
             <div className="hero-stat">
