@@ -21,18 +21,18 @@ export default function Header() {
           <NavLink to="/" className="nav__link">
             Home
           </NavLink>
-          <a href="#data" className="nav__link">
+          <NavLink to="/data" className="nav__link">
             Data
-          </a>
-          <a href="#technology" className="nav__link">
+          </NavLink>
+          <NavLink to="/technology" className="nav__link">
             Technology
-          </a>
-          <a href="#technology" className="nav__link">
+          </NavLink>
+          <NavLink to="/about" className="nav__link">
             About
-          </a>
-          <a href="#contact" className="nav__link">
+          </NavLink>
+          <NavLink to="/contact" className="nav__link">
             Contact
-          </a>
+          </NavLink>
         </nav>
       </div>
     </header>
