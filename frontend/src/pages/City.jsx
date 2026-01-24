@@ -10,7 +10,11 @@ const CITY_CENTER = {
   amsterdam: { lat: 52.3676, lon: 4.9041, zoom: 11.5 },
   prague: { lat: 50.0755, lon: 14.4378, zoom: 11.5 },
   rome: { lat: 41.9028, lon: 12.4964, zoom: 11.3 },
+  bordeaux: { lat: 44.8378, lon: -0.5792, zoom: 11.5 },
+  sicily: { lat: 37.5999, lon: 14.0154, zoom: 8.3 },
+  crete: { lat: 35.2401, lon: 24.8093, zoom: 8.4 },
 };
+
 
 // normalize accents + spacing + dash variants
 function normName(s) {

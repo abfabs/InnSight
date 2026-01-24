@@ -11,14 +11,14 @@ class NeighborhoodsResource(Resource):
         """
         Get neighborhoods for a city.
         Query params:
-          - city (required): amsterdam|prague|rome
+          - city (required): amsterdam|prague|rome|bordeaux|sicily|crete
         """
         try:
             city = request.args.get("city")
             if not city:
                 return {"error": "city required"}, 400
 
-            if city.lower() not in ["amsterdam", "prague", "rome"]:
+            if city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
                 return {"error": "Invalid city"}, 400
 
             db = get_db()

@@ -46,7 +46,8 @@ class WordCloudETL:
             'molto', 'amazing', 'para', 'pour', 'sehr', 'many', 'casa',
             'roma', 'zona', 'time', 'posizione', 'todo', 'paolo', 'definitely',
             'thank', 'staff', 'next', 'super', 'hotel', 'close', 'walk',
-            'clean', 'comfortable', 'easy', 'beautiful', 'walking', 'centro'
+            'clean', 'comfortable', 'easy', 'beautiful', 'walking', 'centro',
+            'sicily', 'bordeaux', 'crete'
         ])
 
     def is_likely_english(self, text):
@@ -235,7 +236,7 @@ class WordCloudETL:
 def main(cities=None):
     """Callable entrypoint for pipeline imports."""
     if cities is None:
-        cities = ['amsterdam', 'rome', 'prague']
+        cities = ['amsterdam', 'rome', 'prague', 'sicily', 'bordeaux', 'crete']
 
     for city in cities:
         etl = WordCloudETL(city)

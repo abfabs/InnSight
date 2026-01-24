@@ -22,7 +22,7 @@ class TopHostsResource(Resource):
     def get(self):
         """
         Query params:
-          - city: amsterdam|prague|rome (optional)
+          - city: amsterdam|prague|rome|bordeaux|sicily|crete (optional)
           - level: city|neighborhood (optional)
           - neighborhood: optional (for level=neighborhood)
         """
@@ -31,8 +31,8 @@ class TopHostsResource(Resource):
             neighborhood = request.args.get("neighborhood")
             level = request.args.get("level")
 
-            if city and city.lower() not in ["amsterdam", "prague", "rome"]:
-                return {"error": "City must be amsterdam, prague, or rome"}, 400
+            if city and city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
+                return {"error": "City must be amsterdam, prague, sicily, bordeaux, crete or rome"}, 400
 
             cache_key = f"top_hosts_{city}_{neighborhood}_{level}"
             cache = current_app.cache

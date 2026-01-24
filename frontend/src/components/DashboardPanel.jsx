@@ -4,8 +4,27 @@ import OccupancyCard from "./charts/OccupancyCard";
 import TopHostsCard from "./charts/TopHostsCard";
 import "../styles/app.css";
 
-export default function DashboardPanel({ city, level, neighborhood, sentiment, roomTypes, occupancy, topHosts }) {
-  const title = neighborhood ? `${city} • ${neighborhood}` : `${city} • City`;
+function formatCity(name) {
+  if (!name) return "";
+  return name
+    .split(" ")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+export default function DashboardPanel({
+  city,
+  level,
+  neighborhood,
+  sentiment,
+  roomTypes,
+  occupancy,
+  topHosts,
+}) {
+  const cityLabel = formatCity(city);
+  const title = neighborhood
+    ? `${cityLabel} • ${neighborhood}`
+    : `${cityLabel} • City`;
 
   return (
     <div className="dash">

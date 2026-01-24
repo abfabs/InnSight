@@ -52,7 +52,7 @@ def main():
     from scripts import aggregate_occupancy
     from scripts import aggregate_top_hosts
 
-    cities = ["amsterdam", "rome", "prague"]
+    cities = ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]
 
     # 0) Drop DB
     print_header("STEP 0: DROP DATABASE")
@@ -67,11 +67,11 @@ def main():
     must(sentiment_etl.main(cities=cities) is not False, "Sentiment ETL")
 
     # 3) Wordcloud ETL (optional)
-    print_header("STEP 3: WORDCLOUD ETL (OPTIONAL)")
-    try:
-        wordcloud_etl.main(cities=cities)
-    except Exception as e:
-        print(f"⚠️ Wordcloud ETL failed, continuing... ({e})")
+    # print_header("STEP 3: WORDCLOUD ETL (OPTIONAL)")
+    # try:
+    #     wordcloud_etl.main(cities=cities)
+    # except Exception as e:
+    #     print(f"⚠️ Wordcloud ETL failed, continuing... ({e})")
 
     # 4) Upload ONLY
     print_header("STEP 4: UPLOAD PROCESSED CSVs (NO AGGREGATIONS)")

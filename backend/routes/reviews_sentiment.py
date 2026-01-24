@@ -10,14 +10,14 @@ class ReviewsSentimentResource(Resource):
     def get(self):
         """
         Query params:
-          - city: amsterdam|prague|rome (optional but recommended)
+          - city: amsterdam|prague|rome|bordeaux|sicily|crete (optional but recommended)
           - limit: optional (default=1000, max=5000)
         Returns: list of review sentiment rows (most recent first)
         """
         try:
             city = request.args.get("city")
-            if city and city.lower() not in ["amsterdam", "prague", "rome"]:
-                return {"error": "City must be amsterdam, prague, or rome"}, 400
+            if city and city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
+                return {"error": "City must be amsterdam, prague, sicily, bordeaux, crete or rome"}, 400
 
             limit = int(request.args.get("limit", 1000))
             if limit > 5000:

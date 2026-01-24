@@ -26,7 +26,7 @@ class WordCloudResource(Resource):
     def get(self):
         """
         Query params:
-          - city: amsterdam|prague|rome (default=prague)
+          - city: aamsterdam|prague|rome|bordeaux|sicily|crete (default=prague)
           - neighborhood: optional
           - limit: optional (default=20, max=100)
         Returns:
@@ -39,8 +39,8 @@ class WordCloudResource(Resource):
         """
         try:
             city = request.args.get("city", "prague")
-            if city and city.lower() not in ["amsterdam", "prague", "rome"]:
-                return {"error": "City must be amsterdam, prague, or rome"}, 400
+            if city and city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
+                return {"error": "City must be amsterdam, prague, sicily, bordeaux, crete or rome"}, 400
 
             neighborhood = request.args.get("neighborhood")
             limit = int(request.args.get("limit", 20))

@@ -13,7 +13,7 @@ class CitiesResource(Resource):
         if cached:
             return cached, 200
 
-        result = {"cities": ["prague", "rome", "amsterdam"]}
+        result = {"cities": ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]}
 
         # Cache for 10 minutes
         cache.set("cities_list", result, timeout=600)

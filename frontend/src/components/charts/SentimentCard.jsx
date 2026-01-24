@@ -16,16 +16,32 @@ function fmtPct(v) {
 }
 
 export default function SentimentCard({ data }) {
-  const row = Array.isArray(data) && data.length ? data[0] : null;
   const [tip, setTip] = useState(null); // {label, pct, count, x, y}
+
+  // ✅ Pick the right row deterministically:
+  // 1) Prefer city-level doc (level === "city", neighborhood null)
+  // 2) Else any city-level doc
+  // 3) Else fallback to max total_reviews
+  const row = useMemo(() => {
+    if (!Array.isArray(data) || data.length === 0) return null;
+
+    const cityRow =
+      data.find(
+        (r) =>
+          r?.level === "city" &&
+          (r?.neighborhood === null || r?.neighborhood === undefined)
+      ) || data.find((r) => r?.level === "city");
+
+    if (cityRow) return cityRow;
+
+    return data
+      .slice()
+      .sort((a, b) => toNum(b?.total_reviews) - toNum(a?.total_reviews))[0];
+  }, [data]);
 
   const parts = useMemo(() => {
     if (!row) {
-      return {
-        total: 0,
-        real: [],
-        display: [],
-      };
+      return { total: 0, real: [], display: [] };
     }
 
     const total = toNum(row.total_reviews);
@@ -101,9 +117,12 @@ export default function SentimentCard({ data }) {
         </div>
       </div>
 
-      {/* Compact 100% stacked bar */}
       <div className="sent-wrap" onMouseLeave={() => setTip(null)}>
-        <div className="sent-bar" role="img" aria-label="Sentiment distribution (100% stacked bar)">
+        <div
+          className="sent-bar"
+          role="img"
+          aria-label="Sentiment distribution (100% stacked bar)"
+        >
           {parts.display.map((p) => (
             <div
               key={p.key}
@@ -126,7 +145,10 @@ export default function SentimentCard({ data }) {
         </div>
 
         {tip && (
-          <div className="sent-tooltip" style={{ left: tip.x, top: tip.y, transform: "translate(-50%, -10px)" }}>
+          <div
+            className="sent-tooltip"
+            style={{ left: tip.x, top: tip.y, transform: "translate(-50%, -10px)" }}
+          >
             <div className="sent-tooltip__title">{tip.label}</div>
             <div className="sent-tooltip__row">
               {fmtPct(tip.pct)} <span className="muted">({fmtInt(tip.count)})</span>
@@ -143,7 +165,9 @@ export default function SentimentCard({ data }) {
           </div>
         </div>
 
-        <div className="muted sent-note">*Small segments are visually widened for readability.</div>
+        <div className="muted sent-note">
+          *Small segments are visually widened for readability.
+        </div>
       </div>
     </div>
   );

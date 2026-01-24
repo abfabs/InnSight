@@ -33,7 +33,7 @@ def aggregate_sentiment():
     print("🔄 Aggregating sentiment summary (from reviews_sentiment)...")
     db.sentiment_summary.drop()
 
-    cities = ["amsterdam", "prague", "rome"]
+    cities = ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]
 
     # Speed indexes
     db.reviews_sentiment.create_index([("city", 1)])

@@ -129,4 +129,13 @@ docs/_build/
 # Repomix output
 repomix-output.xml
 repomix-output.txt
-m
+mbackend/scripts/db_dump/
+*.bson
+
+# DB dumps (too large for GitHub)
+backend/scripts/db_dump/
+*.bson
+
+# Mongo dumps (too large for GitHub)
+db_dump/
+*.bson

@@ -38,7 +38,7 @@ def aggregate_room_types():
     # Drop existing collection
     db.room_type_distribution.drop()
 
-    cities = ['amsterdam', 'prague', 'rome']
+    cities = ['amsterdam', 'rome', 'prague', 'sicily', 'bordeaux', 'crete']
 
     for city in cities:
         print(f"\n📊 Processing {city}...")

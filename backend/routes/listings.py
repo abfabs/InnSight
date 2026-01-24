@@ -30,7 +30,7 @@ def _clean_doc(doc: dict) -> dict:
 
 
 def _validate_city(city: str | None):
-    if city and city.lower() not in ["amsterdam", "prague", "rome"]:
+    if city and city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
         return False
     return True
 
@@ -41,7 +41,7 @@ class ListingsResource(Resource):
         """
         Full listings (used for list/table and also OK for map).
         Query params:
-          - city (optional but recommended): amsterdam|prague|rome
+          - city (optional but recommended): amsterdam|prague|rome|bordeaux|sicily|crete
           - neighborhood (optional)
           - room_type (optional)
           - min_price (optional)

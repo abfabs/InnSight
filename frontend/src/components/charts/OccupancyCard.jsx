@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -12,11 +13,13 @@ import "../../styles/app.css";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function parseYearMonth(s) {
+  // expects YYYY-MM (your DB uses this)
   const m = String(s ?? "").trim().match(/^(\d{4})-(\d{2})$/);
   if (!m) return null;
+  const year = Number(m[1]);
   const monthIndex = Number(m[2]) - 1; // 0..11
-  if (monthIndex < 0 || monthIndex > 11) return null;
-  return monthIndex;
+  if (!Number.isFinite(year) || monthIndex < 0 || monthIndex > 11) return null;
+  return { year, monthIndex, ym: `${m[1]}-${m[2]}` };
 }
 
 function fmtPct(v) {
@@ -40,29 +43,46 @@ function OccupancyTooltip({ active, payload, label }) {
 }
 
 export default function OccupancyCard({ data }) {
-  const row = Array.isArray(data) && data.length ? data[0] : null;
-  const monthly = row?.monthly_occupancy;
+  // ✅ Always use the city doc if present
+  const row = useMemo(() => {
+    if (!Array.isArray(data) || data.length === 0) return null;
+    return data.find((r) => r.level === "city") || data[0];
+  }, [data]);
 
+  const monthly = row?.monthly_occupancy;
   const hasMonthly = Array.isArray(monthly) && monthly.length > 0;
 
-  // Aggregate across years: average occupancy per month (Jan..Dec)
-  const sums = Array(12).fill(0);
-  const counts = Array(12).fill(0);
+  // ✅ Keep only ONE value per month-of-year.
+  // Rule: keep the most recent YYYY-MM for each month index.
+  const chartData = useMemo(() => {
+    const best = Array(12).fill(null); // each slot: { ym, occ }
 
-  if (hasMonthly) {
-    for (const r of monthly) {
-      const mi = parseYearMonth(r.month);
-      const occ = Number(r.occupancy_rate);
-      if (mi === null || !Number.isFinite(occ)) continue;
-      sums[mi] += occ;
-      counts[mi] += 1;
+    if (hasMonthly) {
+      for (const r of monthly) {
+        const parsed = parseYearMonth(r.month);
+        if (!parsed) continue;
+
+        let occ = Number(r.occupancy_rate);
+        if (!Number.isFinite(occ)) continue;
+
+        // If occ is stored as 0..1, scale to 0..100 (safe guard)
+        if (occ > 0 && occ <= 1) occ *= 100;
+
+        const i = parsed.monthIndex;
+        const prev = best[i];
+
+        // Compare YYYY-MM lexicographically: "2026-09" > "2025-09"
+        if (!prev || parsed.ym > prev.ym) {
+          best[i] = { ym: parsed.ym, occ };
+        }
+      }
     }
-  }
 
-  const chartData = MONTHS.map((m, i) => ({
-    month: m,
-    occupancy: counts[i] ? sums[i] / counts[i] : 0,
-  }));
+    return MONTHS.map((m, i) => ({
+      month: m,
+      occupancy: best[i] ? best[i].occ : 0,
+    }));
+  }, [hasMonthly, monthly]);
 
   return (
     <div className="cardbox">
@@ -76,7 +96,7 @@ export default function OccupancyCard({ data }) {
         </div>
       ) : (
         <div className="chart chart--bar" style={{ width: "100%", height: 290, minHeight: 290 }}>
-            <ResponsiveContainer width="100%" height={290}>
+          <ResponsiveContainer width="100%" height={290}>
             <BarChart data={chartData} margin={{ top: 10, right: 10, bottom: 32, left: 0 }}>
               <defs>
                 <linearGradient id="occGradient" x1="0" y1="1" x2="0" y2="0">

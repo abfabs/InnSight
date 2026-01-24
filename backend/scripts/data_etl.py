@@ -7,9 +7,6 @@ import re
 
 
 class DataETL:
-    """
-    Fast data processing: listings, calendar, hosts
-    """
 
     def __init__(self, city):
         self.city = city
@@ -42,7 +39,6 @@ class DataETL:
             'name': 'listing_name',
             'host_id': 'host_id',
             'host_name': 'host_name',
-            'neighborhood_cleansed': 'neighborhood',
             'latitude': 'latitude',
             'longitude': 'longitude',
             'property_type': 'property_type',
@@ -61,9 +57,27 @@ class DataETL:
         listings_clean = listings[available].copy()
         listings_clean.rename(columns=essential_cols, inplace=True)
 
+        if 'neighbourhood_cleansed' in listings.columns:
+            listings_clean['neighborhood'] = listings['neighbourhood_cleansed']
+        elif 'neighborhood_cleansed' in listings.columns:
+            listings_clean['neighborhood'] = listings['neighborhood_cleansed']
+        elif 'neighbourhood' in listings.columns:
+            listings_clean['neighborhood'] = listings['neighbourhood']
+        elif 'neighborhood' in listings.columns:
+            listings_clean['neighborhood'] = listings['neighborhood']
+        else:
+            raise KeyError(
+                f"{self.city}: No neighbourhood/neighborhood column found in listings.csv"
+            )
+
+        listings_clean['neighborhood'] = listings_clean['neighborhood'].astype(str).str.strip()
+        listings_clean = listings_clean[
+            listings_clean['neighborhood'].ne('') &
+            listings_clean['neighborhood'].ne('nan')
+        ]
+
         listings_clean['price'] = listings_clean['price'].apply(self.clean_price)
 
-        # Remove price outliers (1%–99%)
         Q1 = listings_clean['price'].quantile(0.01)
         Q3 = listings_clean['price'].quantile(0.99)
         listings_clean = listings_clean[
@@ -71,9 +85,8 @@ class DataETL:
             (listings_clean['price'] <= Q3)
         ]
 
-        # Ensure required columns exist
         required = ['listing_id', 'latitude', 'longitude', 'price', 'neighborhood']
-        listings_clean.dropna(subset=[c for c in required if c in listings_clean.columns], inplace=True)
+        listings_clean.dropna(subset=required, inplace=True)
 
         output_file = self.output_path / 'listings_clean.csv'
         listings_clean.to_csv(output_file, index=False)
@@ -124,7 +137,6 @@ class DataETL:
             most_common_room_type=('room_type', lambda x: x.mode().iloc[0] if len(x) else 'Entire home/apt')
         ).reset_index()
 
-        # Room type distribution (%)
         room_type_dist = listings.groupby(['neighborhood', 'room_type']).size().unstack(fill_value=0)
         room_type_dist = room_type_dist.div(room_type_dist.sum(axis=1), axis=0) * 100
         room_type_dist = room_type_dist.reset_index()
@@ -167,12 +179,8 @@ class DataETL:
 
 
 def main(cities=None):
-    """
-    Callable entrypoint for pipeline imports.
-    Still supports running this file directly.
-    """
     if cities is None:
-        cities = ['amsterdam', 'rome', 'prague']
+        cities = ['amsterdam', 'rome', 'prague', 'sicily', 'bordeaux', 'crete']
 
     for city in cities:
         etl = DataETL(city)
