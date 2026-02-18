@@ -52,7 +52,7 @@ def main():
     from scripts import aggregate_occupancy
     from scripts import aggregate_top_hosts
 
-    cities = ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]
+    cities = ["amsterdam", "rome", "lisbon", "sicily", "bordeaux", "crete"]
 
     # 0) Drop DB
     print_header("STEP 0: DROP DATABASE")

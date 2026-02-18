@@ -5,15 +5,17 @@ import NeighborhoodFilter from "../components/NeighborhoodFilter";
 import MapPanel from "../components/MapPanel";
 import MapLegend from "../components/MapLegend";
 import DashboardPanel from "../components/DashboardPanel";
+import ChatWidget from "../components/ChatWidget";
 
 const CITY_CENTER = {
   amsterdam: { lat: 52.3676, lon: 4.9041, zoom: 11.5 },
-  prague: { lat: 50.0755, lon: 14.4378, zoom: 11.5 },
+  lisbon: { lat: 38.7223, lon: -9.1393, zoom: 12 },
   rome: { lat: 41.9028, lon: 12.4964, zoom: 11.3 },
   bordeaux: { lat: 44.8378, lon: -0.5792, zoom: 11.5 },
   sicily: { lat: 37.5999, lon: 14.0154, zoom: 8.3 },
   crete: { lat: 35.2401, lon: 24.8093, zoom: 8.4 },
 };
+
 
 
 // normalize accents + spacing + dash variants
@@ -113,7 +115,7 @@ function DualRangeSlider({ min, max, step = 5, value, onChange }) {
   );
 }
 
-export default function City() {
+export default function City({ chatResetRef }) {
   const { city } = useParams();
   const cityKey = normName(city);
   const cityCfg = CITY_CENTER[cityKey] || { lat: 51.5074, lon: -0.1278, zoom: 11.5 };
@@ -179,7 +181,7 @@ export default function City() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city]);
 
-  // Fetch neighborhoods list (NOTE: your API returns { neighborhoods: [...] })
+  // Fetch neighborhoods list
   useEffect(() => {
     let alive = true;
     setErr("");
@@ -200,7 +202,7 @@ export default function City() {
     };
   }, [city]);
 
-  // Fetch map markers (your real endpoint)
+  // Fetch map markers
   useEffect(() => {
     let alive = true;
     setErr("");
@@ -226,7 +228,7 @@ export default function City() {
     };
   }, [city]);
 
-  // ✅ Restore the old “fly to neighborhood bounds” logic (from previous file)
+  // Bounds per neighborhood for fly-to behavior
   const boundsByNeighborhood = useMemo(() => {
     const map = new globalThis.Map();
 
@@ -279,7 +281,7 @@ export default function City() {
     }));
   }, [neighborhood, boundsByNeighborhood, cityCfg.lat, cityCfg.lon, cityCfg.zoom]);
 
-  // Fetch dashboard data (your real endpoints)
+  // Fetch dashboard data
   useEffect(() => {
     let alive = true;
     setErr("");
@@ -340,9 +342,13 @@ export default function City() {
 
     if (!Number.isFinite(min) || !Number.isFinite(max)) return [0, 500];
     const minR = Math.floor(min / 10) * 10;
-    const maxR = Math.ceil(max / 10) * 10;
+    let maxR = Math.ceil(max / 10) * 10;
+
+    // Safety
+    if (minR > maxR) return [0, 500];
+
     return [minR, maxR];
-  }, [markers]);
+  }, [markers, cityKey]);
 
   // Sync bounds and clamp current slider values
   useEffect(() => {
@@ -367,24 +373,26 @@ export default function City() {
 
   // Debounce: apply draft to map after user pauses dragging
   useEffect(() => {
-    const t = setTimeout(() => setPriceRange(priceDraft), 180);
-    return () => clearTimeout(t);
+    const tmr = setTimeout(() => setPriceRange(priceDraft), 180);
+    return () => clearTimeout(tmr);
   }, [priceDraft]);
 
   // Filter markers for the map (use debounced priceRange)
   const filteredMarkers = useMemo(() => {
     const [minP, maxP] = priceRange;
 
+    const effectiveMax = maxP;
+
     return (markers || []).filter((m) => {
       const nbOk = !neighborhood || normName(m?.neighborhood) === normName(neighborhood);
       const rtOk = roomTypeSet.size === 0 || roomTypeSet.has(m?.room_type);
 
       const p = parsePrice(m?.price);
-      const priceOk = !Number.isFinite(p) ? true : p >= minP && p <= maxP;
+      const priceOk = !Number.isFinite(p) ? true : p >= minP && p <= effectiveMax;
 
       return nbOk && rtOk && priceOk;
     });
-  }, [markers, neighborhood, roomTypeSet, priceRange]);
+  }, [markers, neighborhood, roomTypeSet, priceRange, cityKey]);
 
   // Defer heavy map updates to keep UI responsive
   const deferredMarkers = useDeferredValue(filteredMarkers);
@@ -399,7 +407,11 @@ export default function City() {
           <h2 className="title">{city}</h2>
         </div>
 
-        <NeighborhoodFilter neighborhoods={neighborhoods} value={neighborhood} onChange={setNeighborhood} />
+        <NeighborhoodFilter
+          neighborhoods={neighborhoods}
+          value={neighborhood}
+          onChange={setNeighborhood}
+        />
       </header>
 
       {err && <div className="error">{err}</div>}
@@ -452,7 +464,12 @@ export default function City() {
 
           {loadingMap && <div className="loading loading--overlay">Loading map…</div>}
 
-          <MapPanel markers={deferredMarkers} allMarkers={markers} viewState={viewState} setViewState={setViewState} />
+          <MapPanel
+            markers={deferredMarkers}
+            allMarkers={markers}
+            viewState={viewState}
+            setViewState={setViewState}
+          />
 
           <MapLegend />
         </div>
@@ -461,18 +478,23 @@ export default function City() {
           {loadingDash ? (
             <div className="loading">Loading dashboard…</div>
           ) : (
-            <DashboardPanel
-              city={city}
-              level={level}
-              neighborhood={neighborhood}
-              sentiment={sentiment}
-              roomTypes={roomTypes}
-              occupancy={occupancy}
-              topHosts={topHosts}
-            />
+            <div className="dash-stack">
+              <DashboardPanel
+                city={city}
+                level={level}
+                neighborhood={neighborhood}
+                sentiment={sentiment}
+                roomTypes={roomTypes}
+                occupancy={occupancy}
+                topHosts={topHosts}
+              />
+            </div>
           )}
         </div>
       </div>
+
+      {/* Bottom-right chatbot (global for this page) */}
+      <ChatWidget defaultCity={city} onResetRef={chatResetRef} />
     </div>
   );
 }

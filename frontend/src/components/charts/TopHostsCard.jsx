@@ -1,4 +1,3 @@
-import "../../styles/app.css";
 
 function fmtRating(v) {
   const n = Number(v);

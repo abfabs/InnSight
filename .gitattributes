@@ -1,1 +1,0 @@
-db_dump/**/*.bson filter=lfs diff=lfs merge=lfs -text

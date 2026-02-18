@@ -1,0 +1,339 @@
+/* =========================================================
+   base.css — Global resets, layout, grids, common UI
+   ========================================================= */
+
+:root {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #0b0f17;
+    color: #e8eefc;
+}
+
+/* =========================
+   Layout / Pages
+   ========================= */
+
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.page--city {
+    max-width: 1400px;
+}
+
+.landing {
+    min-height: 100vh;
+}
+
+/* =========================
+   Topbar
+   ========================= */
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.backlink {
+    color: #a9b6d3;
+    text-decoration: none;
+}
+
+.backlink:hover {
+    text-decoration: underline;
+}
+
+.title {
+    margin: 0;
+    text-transform: capitalize;
+}
+
+/* =========================
+   Common UI
+   ========================= */
+
+.error {
+    background: #2a1430;
+    border: 1px solid #5a2a6b;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 12px 0;
+}
+
+.loading {
+    padding: 20px;
+    color: #a9b6d3;
+}
+
+.loading--overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(11, 15, 23, 0.65);
+    z-index: 999;
+}
+
+.muted {
+    color: #a9b6d3;
+}
+
+/* =========================
+   Grids / City Cards
+   ========================= */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.grid--cities {
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+}
+
+@media (max-width: 920px) {
+    .grid--cities {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 620px) {
+    .grid--cities {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    border: 1px solid #1b2540;
+    background: #0f1626;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 200ms ease;
+}
+
+.card:hover {
+    border-color: #3657ff;
+}
+
+.card:focus-visible {
+    outline: 2px solid #3657ff;
+    outline-offset: 3px;
+}
+
+.card-img {
+    position: relative;
+    flex: 1;
+    transform: scale(1);
+    transition: transform 260ms ease;
+    overflow: hidden;
+}
+
+.card-img::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg);
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    transform: scale(1);
+    transition: transform 260ms ease, filter 260ms ease;
+    will-change: transform, filter;
+}
+
+.card-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(24, 55, 120, 0.55),
+            rgba(24, 55, 120, 0.38) 35%,
+            rgba(24, 55, 120, 0.18) 55%,
+            rgba(24, 55, 120, 0) 75%);
+    opacity: 1;
+    transition: opacity 260ms ease;
+    pointer-events: none;
+}
+
+.card:hover .card-img::before,
+.card:focus-visible .card-img::before {
+    filter: grayscale(0%);
+    transform: scale(1.06);
+}
+
+.card:hover .card-img::after,
+.card:focus-visible .card-img::after {
+    opacity: 0;
+}
+
+.card-title-overlay {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), 0 0 2px rgba(160, 160, 160, 0.8);
+    pointer-events: none;
+}
+
+.card-title-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.card-title-row h3 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* =========================
+   Filters
+   ========================= */
+
+.filter {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-label {
+    color: #a9b6d3;
+    font-size: 14px;
+}
+
+.filter-select {
+    background: #0f1626;
+    color: #e8eefc;
+    border: 1px solid #1b2540;
+    padding: 10px 12px;
+    border-radius: 10px;
+}
+
+/* =========================
+   Buttons
+   ========================= */
+
+.btn {
+    border-radius: 12px;
+    padding: 11px 14px;
+    border: 1px solid #1b2540;
+    background: #0f1626;
+    color: #e8eefc;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.btn:hover {
+    border-color: #3657ff;
+    background: rgba(54, 87, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    border-color: rgba(54, 87, 255, 0.8);
+    background: rgba(54, 87, 255, 0.15);
+}
+
+/* =========================
+   Chips
+   ========================= */
+
+.chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    padding: 8px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    background: rgba(2, 6, 23, 0.35);
+    color: rgba(226, 232, 240, 0.92);
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.chip--on {
+    background: rgba(37, 99, 235, 0.22);
+    border-color: rgba(37, 99, 235, 0.35);
+}
+
+/* =========================
+   Not Found
+   ========================= */
+
+.page--notfound {
+    min-height: calc(100vh - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notfound {
+    text-align: center;
+}
+
+.notfound-code {
+    font-size: 96px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #3657ff;
+}
+
+.notfound-title {
+    margin: 8px 0 6px;
+    font-size: 28px;
+}
+
+.notfound-text {
+    color: #a9b6d3;
+    margin-bottom: 16px;
+}
+
+.notfound-link {
+    display: inline-block;
+    color: #e8eefc;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1px solid #1b2540;
+    background: #0f1626;
+    transition: border-color 160ms ease, background 160ms ease;
+}
+
+.notfound-link:hover {
+    border-color: #3657ff;
+    background: rgba(54, 87, 255, 0.08);
+}

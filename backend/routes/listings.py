@@ -1,6 +1,7 @@
 from flask import request, current_app
 from flask_restx import Namespace, Resource
 from utils.db import get_db
+from config import Config
 import math
 
 ns = Namespace("listings", path="/api", description="Listings and map endpoints")
@@ -30,9 +31,10 @@ def _clean_doc(doc: dict) -> dict:
 
 
 def _validate_city(city: str | None):
-    if city and city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
+    if city and city.lower() not in Config.ALLOWED_CITIES:
         return False
     return True
+
 
 
 @ns.route("/listings")
@@ -41,7 +43,7 @@ class ListingsResource(Resource):
         """
         Full listings (used for list/table and also OK for map).
         Query params:
-          - city (optional but recommended): amsterdam|prague|rome|bordeaux|sicily|crete
+          - city (optional but recommended): amsterdam|lisbon|rome|bordeaux|sicily|crete
           - neighborhood (optional)
           - room_type (optional)
           - min_price (optional)

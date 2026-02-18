@@ -229,7 +229,7 @@ def main(cities=None):
     Still supports running this file directly.
     """
     if cities is None:
-        cities = ['amsterdam', 'rome', 'prague', 'sicily', 'bordeaux', 'crete']
+        cities = ['amsterdam', 'rome', 'lisbon', 'sicily', 'bordeaux', 'crete']
 
     for city in cities:
         etl = SentimentETL(city)

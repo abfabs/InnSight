@@ -8,6 +8,8 @@
 - [4. Risks and Mitigation Strategies](#4-risks-and-mitigation-strategies)
 - [5. High-Level Plan](#5-high-level-plan)
 - [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
 - [License](#license)
 - [Authors](#authors)
 
@@ -18,24 +20,26 @@
 ### Project Overview
 InnSight is an interactive data visualization platform designed to help travelers make smarter, more informed decisions when choosing where to stay. Planning a trip can be overwhelming, especially when you're trying to figure out which neighborhood fits your vibe, what's a fair price, or whether other travelers actually enjoyed their experience. That's where InnSight comes in.
 
-By combining geographic mapping, pricing analysis, and machine learning-powered sentiment analysis of guest reviews, InnSight transforms raw Airbnb data into clear, actionable insights. Instead of endlessly scrolling through listings or reading hundreds of reviews, travelers can explore cities visually, compare neighborhoods at a glance, and understand the true character of an area through data-driven word clouds and sentiment scores.
+By combining geographic mapping, pricing analysis, machine learning-powered sentiment analysis of guest reviews, and an AI-driven travel assistant, InnSight transforms raw Airbnb data into clear, actionable insights. Instead of endlessly scrolling through listings or reading hundreds of reviews, travelers can explore cities visually, compare neighborhoods at a glance, and converse with an intelligent chatbot that draws on thousands of real guest reviews to answer questions and provide personalized recommendations.
 
-While other platforms focus on the socioeconomic impacts of short-term rentals, InnSight is built for the traveler. Whether you're on a tight budget looking for the best deal, seeking a lively nightlife district, or hunting for a quiet residential area to unwind, InnSight gives you the tools to find your perfect match based on real data from real guests.
+The platform currently supports six European cities: Amsterdam, Bordeaux, Crete, Lisbon, Rome, and Sicily.
 
 ---
 
 ## 1. Project Objectives
 
 **Purpose:**  
-To create an intelligent, data-driven platform that helps travelers discover and compare Airbnb listings in multiple cities using interactive maps, pricing analytics, and machine learning-powered sentiment analysis.
+To create an intelligent, data-driven platform that helps travelers discover and compare Airbnb listings in multiple cities using interactive maps, pricing analytics, machine learning-powered sentiment analysis, and a conversational AI travel assistant.
 
 **SMART Objectives:**
 
-1. **Launch MVP by January 10, 2026** with support for at least 3 cities (Amsterdam, Prague, and Rome), featuring interactive map visualization, price filtering and ML-generated word clouds from reviews.
+1. **Launch MVP by January 10, 2026** with support for at least 3 cities featuring interactive map visualization, price filtering, and ML-generated word clouds from reviews. Achieved with 6 cities.
 
 2. **Achieve 95% data processing accuracy** by implementing automated pipelines that clean, validate, and structure CSV datasets (listings, reviews, neighborhoods, calendar) into a queryable database by December 22, 2025.
 
 3. **Deliver sub-3-second page load times** for all interactive map features and data visualizations through optimized frontend rendering and backend API responses by March 14, 2026.
+
+4. **Integrate a RAG-powered conversational travel assistant** that leverages FAISS vector search and sentence-transformer embeddings over the full review corpus to provide context-aware, natural-language travel recommendations. Implemented in February 2026.
 
 ---
 
@@ -48,16 +52,16 @@ To create an intelligent, data-driven platform that helps travelers discover and
 
 ## Team Members & Roles
 
-**Alba Eftimi** — Full-Stack Developer  
-*Backend API development, database design, ML model integration*
+**Alba Eftimi** -- Full-Stack Developer  
+*Backend API development, database design, ML model integration, RAG pipeline*
 
-**Sokol Gjeka** — Frontend Developer  
+**Sokol Gjeka** -- Frontend Developer  
 *Interactive map implementation, UI/UX design, JavaScript visualization*
 
-**Renis Vukaj** — Data Engineer  
+**Renis Vukaj** -- Data Engineer  
 *ETL pipelines, data cleaning, CSV processing, GeoJSON integration*
 
-**Kevin Voka** — ML Engineer  
+**Kevin Voka** -- ML Engineer  
 *Word cloud generation, sentiment analysis, NLP model training*
 
 *All team members contribute to testing, documentation, and Demo Day presentation.*
@@ -67,15 +71,19 @@ To create an intelligent, data-driven platform that helps travelers discover and
 ## 3. Scope
 
 ### In-Scope:
-- Interactive map visualization using D3.js and Chart.js with overlays
-- Price analysis dashboard with filters (by area, property type, date range)
-- ML-powered word clouds generated from review text
-- Support for 3-5 major cities with comprehensive listing data
-- Backend REST API (Flask) serving listing and review data
-- Database integration (NoSQL/MongoDB) for structured data storage
+- Interactive map visualization using DeckGL and MapLibre GL with scatterplot overlays, color-coded by price range
+- Price analysis dashboard with neighborhood filtering, room type selection, and dual-handle price range slider
+- ML-powered word clouds generated from review text using NLTK and spaCy
+- Sentiment analysis of guest reviews using VaderSentiment, with per-neighborhood breakdowns (positive, neutral, negative)
+- Room type distribution donut charts and occupancy rate visualizations using Recharts
+- Top hosts leaderboard ranked by listing count and average rating
+- RAG-powered conversational travel assistant (InnSight chatbot) using FAISS vector search, sentence-transformers embeddings, and LLM-first architecture with multi-turn conversation memory
+- Support for 6 European cities: Amsterdam, Bordeaux, Crete, Lisbon, Rome, and Sicily
+- Backend REST API (Flask) with Swagger documentation via flask-restx
+- Database integration (MongoDB) for structured data storage with automated index creation
 - Responsive web design for desktop and mobile browsers
-- Search and filter functionality (price range, ratings)
-- Neighborhood vibe scores calculated from review sentiment
+- Contact form with Netlify Forms integration
+- Informational pages: Data methodology, Technology stack overview, About the project
 
 ### Out-of-Scope:
 - Real-time Airbnb booking integration
@@ -95,10 +103,10 @@ To create an intelligent, data-driven platform that helps travelers discover and
 |------|------------|--------|---------------------|
 | **Data quality issues** (outdated CSV files) | High | High | Implement robust data validation pipelines; fallback to archived datasets; automated integrity checks |
 | **ML model underperformance** (poor word cloud quality) | Medium | Medium | Start with pre-trained NLP models (NLTK/spaCy); iterative testing; manual review sample validation |
-| **Map rendering performance** (lag with 10k+ markers) | Medium | High | Implement marker clustering; lazy loading; optimize GeoJSON file sizes; use CDN for static assets |
+| **Map rendering performance** (lag with 10k+ markers) | Medium | High | Use DeckGL with WebGL-based scatterplot layers; marker clustering via deck.gl; lazy loading of map data |
+| **RAG retrieval quality** (irrelevant context in chatbot responses) | Medium | Medium | Tune FAISS similarity thresholds; filter by minimum score; combine vector retrieval with structured MongoDB queries for hybrid context |
 | **Scope creep** (adding features beyond objectives) | High | Medium | Strict feature freeze after Jan 10; prioritize MVP features; document Phase 2 ideas separately |
 | **Team member availability** (bootcamp workload conflicts) | Medium | High | Weekly standups; clear task ownership; buffer time in timeline; parallel workstream design |
-| **Holiday season delays** (December break) | High | Medium | Front-load critical work in December; async communication protocols; flexible deadline buffers |
 
 ---
 
@@ -120,6 +128,7 @@ To create an intelligent, data-driven platform that helps travelers discover and
 - **Dec 12:** Project Charter approved
 - **Dec 19:** Technical documentation complete
 - **Jan 10:** MVP feature-complete and deployed
+- **Feb 18:** RAG chatbot integrated with LLM-first architecture
 - **Feb 21:** Final testing and project closure
 - **Mar 14:** Landing page live and Demo Day presentation
 
@@ -127,11 +136,131 @@ To create an intelligent, data-driven platform that helps travelers discover and
 
 ## Technology Stack
 
-- **Backend:** Python (Flask), Pandas
-- **Frontend:** JavaScript (React), D3.js, Chart.js
-- **Database:** NoSQL (MongoDB)
-- **ML/NLP:** Word cloud generation, sentiment analysis  
-- **Data:** CSV datasets (listings, reviews, calendar)
+### Backend
+- **Framework:** Python (Flask), flask-restx (Swagger API docs), Flask-Caching, Flask-Limiter
+- **Database:** MongoDB (pymongo) with automated index creation
+- **Data Processing:** Pandas, NumPy
+- **ML/NLP:** scikit-learn, NLTK, spaCy, VaderSentiment, langdetect, WordCloud
+- **RAG Pipeline:** FAISS (faiss-cpu) for vector similarity search, sentence-transformers for text embeddings, Google Gemini API for LLM inference
+- **Other:** python-dotenv, schedule, requests
+
+### Frontend
+- **Framework:** React 19 (Vite)
+- **Routing:** react-router-dom
+- **Maps:** DeckGL (WebGL scatterplots), MapLibre GL, react-map-gl, Leaflet (react-leaflet)
+- **Charts:** Recharts
+- **HTTP Client:** Axios
+- **Styling:** Vanilla CSS (modular: base, city, landing, pages, chat)
+
+---
+
+## Project Structure
+
+```
+InnSight/
+  backend/
+    app.py                  # Flask app factory
+    config.py               # Centralized configuration (cities, DB, etc.)
+    run.py                  # Development server entry point
+    routes/                 # API endpoints
+      analytics.py          #   GET /api/analytics
+      chat.py               #   POST /api/chat
+      cities.py             #   GET /api/cities
+      listings.py           #   GET /api/listings, /api/listings-map
+      neighborhoods.py      #   GET /api/neighborhoods
+      neighborhood_sentiment.py
+      occupancy_stats.py
+      reviews_sentiment.py
+      room_type_distribution.py
+      sentiment_summary.py
+      top_hosts_route.py
+    services/
+      chat_rag.py           # LLM-first RAG chatbot logic
+      city_tags.py           # City tag extraction
+      travel_planner.py      # Structured recommendation builder
+    rag/
+      embeddings.py          # Sentence-transformer model loading
+      ingest.py              # FAISS index builder from reviews/guides
+      retriever.py           # Vector similarity search
+      vector_store.py        # FAISS index management
+    tests/
+      full_test.sh           # API integration tests
+  frontend/
+    src/
+      main.jsx              # App entry point, CSS imports
+      App.jsx               # Router and layout
+      api/
+        chat.js             # Chat API client
+      components/
+        ChatPanel.jsx       # Chat UI with conversation history
+        ChatWidget.jsx      # Floating chat FAB + window
+        ChatMessage.jsx     # Individual chat bubble
+        CityCard.jsx        # City grid card
+        DashboardPanel.jsx  # Right-side dashboard on city page
+        MapPanel.jsx        # DeckGL + MapLibre map
+        MapLegend.jsx       # Price range legend
+        MonthPicker.jsx     # Month selection modal
+        NeighborhoodFilter.jsx
+        charts/
+          OccupancyCard.jsx
+          RoomTypesCard.jsx
+          SentimentCard.jsx
+          TopHostsCard.jsx
+        Layout/
+          Header.jsx
+          Footer.jsx
+      pages/
+        Landing.jsx         # Home page with hero and city grid
+        City.jsx            # City detail: map + dashboard
+        Data.jsx            # Data methodology page
+        Technology.jsx      # Technology stack page
+        About.jsx           # About the project
+        Contact.jsx         # Contact form (Netlify)
+        NotFound.jsx        # 404 page
+      styles/
+        base.css            # Global resets, layout, grids, cards, buttons
+        city.css            # City page panels, charts, map, filters
+        landing.css         # Hero, sections, how-it-works
+        pages.css           # Data, Tech, About, Contact, Team styles
+        chat.css            # Chat widget, window, bubbles
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- MongoDB (local or Atlas)
+
+### Backend Setup
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python run.py
+```
+
+The API server starts at `http://localhost:5000`. Swagger documentation is available at `/api/docs`.
+
+### Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The development server starts at `http://localhost:5173`.
+
+### RAG Pipeline (optional)
+To build the FAISS vector index for the chatbot:
+```bash
+cd backend
+python -m rag.ingest
+```
+This processes all reviews and text guides into a searchable vector store. The chatbot will function without it but will not have RAG context for its responses.
 
 ---
 
@@ -156,6 +285,6 @@ This project is for educational purposes only and is part of the **Holberton Sch
 </p>
 
 <p align="center">
-  <em>December 2025</em><br>
+  <em>December 2025 - February 2026</em><br>
   <em>Tirana, Albania</em>
 </p>

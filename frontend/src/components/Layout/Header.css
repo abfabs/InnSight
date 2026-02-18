@@ -89,3 +89,21 @@
     padding: 8px 8px;
   }
 }
+
+.chat-header {
+  position: relative;
+}
+
+.chat-new {
+  margin-left: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.6);
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.chat-new:hover {
+  border-color: rgba(96, 165, 250, 0.6);
+}

@@ -1,6 +1,7 @@
 from flask import request
 from flask_restx import Namespace, Resource
 from utils.db import get_db
+from config import Config
 
 ns = Namespace("neighborhoods", path="/api/neighborhoods", description="Neighborhood endpoints")
 
@@ -11,14 +12,14 @@ class NeighborhoodsResource(Resource):
         """
         Get neighborhoods for a city.
         Query params:
-          - city (required): amsterdam|prague|rome|bordeaux|sicily|crete
+          - city (required): amsterdam|lisbon|rome|bordeaux|sicily|crete
         """
         try:
             city = request.args.get("city")
             if not city:
                 return {"error": "city required"}, 400
 
-            if city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
+            if city.lower() not in Config.ALLOWED_CITIES:
                 return {"error": "Invalid city"}, 400
 
             db = get_db()

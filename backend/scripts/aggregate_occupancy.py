@@ -32,7 +32,7 @@ def aggregate_occupancy():
     print("🔄 Aggregating occupancy by month...")
     db.occupancy_by_month.drop()
 
-    cities = ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]
+    cities = ["amsterdam", "rome", "lisbon", "sicily", "bordeaux", "crete"]
     base_path = os.path.join(os.path.dirname(__file__), "..", "data", "raw")
 
     # indexes that make API queries fast

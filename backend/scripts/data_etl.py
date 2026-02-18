@@ -180,7 +180,7 @@ class DataETL:
 
 def main(cities=None):
     if cities is None:
-        cities = ['amsterdam', 'rome', 'prague', 'sicily', 'bordeaux', 'crete']
+        cities = ['amsterdam', 'rome', 'lisbon', 'sicily', 'bordeaux', 'crete']
 
     for city in cities:
         etl = DataETL(city)

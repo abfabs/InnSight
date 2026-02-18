@@ -1,0 +1,687 @@
+/* =========================================================
+   city.css — City page: panels, dashboard, charts, map,
+              room types, sentiment, map filters, slider
+   ========================================================= */
+
+/* =========================
+   Split Panels
+   ========================= */
+
+.split {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.panel {
+    border: 1px solid #1b2540;
+    border-radius: 16px;
+    background: #0f1626;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.panel--map {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    flex: 1;
+    gap: 10px;
+    min-height: 0;
+}
+
+.panel--dash {
+    padding: 12px;
+    overflow: auto;
+    min-height: 0;
+}
+
+.panel--map,
+.panel--dash {
+    height: 760px;
+}
+
+/* =========================
+   Dashboard
+   ========================= */
+
+.dash-title {
+    font-size: 16px;
+    color: #a9b6d3;
+    margin-bottom: 10px;
+}
+
+.dash-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cardbox {
+    border: 1px solid #1b2540;
+    border-radius: 14px;
+    padding: 12px;
+    background: #0b1220;
+}
+
+.cardbox h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    gap: 0;
+    padding: 8 5px;
+}
+
+.row .stat {
+    min-width: 0;
+    text-align: center;
+}
+
+.row .stat:first-child {
+    text-align: left;
+}
+
+.row .stat:last-child {
+    text-align: right;
+}
+
+.stat-label {
+    color: #a9b6d3;
+    font-size: 12px;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* =========================
+   Charts
+   ========================= */
+
+.chart {
+    width: 100%;
+    height: 220px;
+    min-height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+}
+
+.chart--bar {
+    height: 240px;
+    min-height: 240px;
+}
+
+.chart-tooltip {
+    background: rgba(11, 15, 23, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    padding: 10px 12px;
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+}
+
+.chart-tooltip__title {
+    font-weight: 650;
+    margin-bottom: 6px;
+}
+
+.chart-tooltip__row {
+    font-size: 0.95rem;
+    opacity: 0.95;
+}
+
+/* =========================
+   Lists (Top Hosts, etc.)
+   ========================= */
+
+.list {
+    margin-top: 8px;
+}
+
+.list-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #152041;
+}
+
+.list-row:last-child {
+    border-bottom: none;
+}
+
+.list-key {
+    color: #e8eefc;
+}
+
+.list-val {
+    color: #a9b6d3;
+}
+
+.host-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.host-rank {
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #e8eefc;
+    background: rgba(54, 87, 255, 0.22);
+    border: 1px solid rgba(54, 87, 255, 0.35);
+    flex-shrink: 0;
+}
+
+.host-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.host-rating {
+    width: 34px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.95;
+}
+
+.list-header {
+    opacity: 0.7;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+}
+
+.list-header .host-rank {
+    background: none;
+    border: none;
+    color: inherit;
+    font-weight: 600;
+}
+
+.list-header .list-key,
+.list-header .list-val,
+.list-header .host-rating {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* =========================
+   Room Type Donut
+   ========================= */
+
+.rt-donut-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 6px 0 10px;
+}
+
+.rt-donut-dot {
+    cursor: pointer;
+    stroke: rgba(148, 163, 184, 0.18);
+    stroke-width: 1;
+    opacity: 0.95;
+    transition: transform 0.08s ease, filter 0.12s ease, opacity 0.12s ease;
+    transform-origin: center;
+}
+
+.rt-donut-dot:hover {
+    transform: scale(1.12);
+    filter: brightness(1.08);
+    opacity: 1;
+}
+
+.rt-donut-tooltip {
+    position: fixed;
+    z-index: 9999;
+    background: rgba(11, 15, 23, 0.92);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    padding: 10px 12px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+}
+
+.rt-donut-tooltip__title {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.rt-donut-tooltip__row {
+    font-variant-numeric: tabular-nums;
+}
+
+.rt-donut-legend {
+    display: grid;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.rt-donut-legend-item {
+    display: grid;
+    grid-template-columns: 14px 1fr auto;
+    align-items: center;
+    gap: 10px;
+}
+
+.rt-donut-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 5px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.rt-donut-legend-val {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.9;
+}
+
+.rt-donut-dot[data-tone="positive"],
+.rt-donut-swatch[data-tone="positive"] {
+    fill: rgba(54, 87, 255, 0.85);
+    background: rgba(54, 87, 255, 0.85);
+}
+
+.rt-donut-dot[data-tone="neutral"],
+.rt-donut-swatch[data-tone="neutral"] {
+    fill: rgba(148, 163, 184, 0.55);
+    background: rgba(148, 163, 184, 0.55);
+}
+
+.rt-donut-dot[data-tone="neutral2"],
+.rt-donut-swatch[data-tone="neutral2"] {
+    fill: rgba(148, 163, 184, 0.35);
+    background: rgba(148, 163, 184, 0.35);
+}
+
+.rt-donut-dot[data-tone="negative"],
+.rt-donut-swatch[data-tone="negative"] {
+    fill: rgba(239, 68, 68, 0.75);
+    background: rgba(239, 68, 68, 0.75);
+}
+
+/* =========================
+   Sentiment Bar
+   ========================= */
+
+.sent-wrap {
+    position: relative;
+    margin-top: 10px;
+}
+
+.sent-bar {
+    display: flex;
+    height: 14px;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(148, 163, 184, 0.08);
+}
+
+.sent-seg {
+    height: 100%;
+    cursor: pointer;
+    transition: filter 0.12s ease;
+}
+
+.sent-seg:hover {
+    filter: brightness(1.08);
+}
+
+.sent-seg[data-sent="positive"] {
+    background: rgba(54, 87, 255, 0.85);
+}
+
+.sent-seg[data-sent="neutral"] {
+    background: rgba(148, 163, 184, 0.55);
+}
+
+.sent-seg[data-sent="negative"] {
+    background: rgba(239, 68, 68, 0.75);
+}
+
+.sent-tooltip {
+    position: fixed;
+    z-index: 9999;
+    background: rgba(11, 15, 23, 0.92);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    padding: 10px 12px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+}
+
+.sent-tooltip__title {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.sent-tooltip__row {
+    font-variant-numeric: tabular-nums;
+}
+
+.sent-callouts {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.sent-pill {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(148, 163, 184, 0.08);
+    font-size: 0.95rem;
+}
+
+.sent-pill[data-sent="neutral"] strong {
+    color: rgba(148, 163, 184, 0.95);
+}
+
+.sent-pill[data-sent="negative"] strong {
+    color: rgba(239, 68, 68, 0.95);
+}
+
+.sent-note {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* =========================
+   MapLibre / DeckGL
+   ========================= */
+
+.map-canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border-radius: 12px;
+    overflow: visible;
+}
+
+.map-clip {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.map-canvas,
+.map-clip {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.map-canvas .maplibregl-map,
+.map-canvas .maplibregl-canvas-container,
+.map-canvas .maplibregl-canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.map-canvas .maplibregl-canvas {
+    outline: none;
+}
+
+.map-canvas canvas {
+    cursor: grab;
+}
+
+.map-canvas canvas:active {
+    cursor: grabbing;
+}
+
+/* DeckGL injects this class at runtime */
+.deck-tooltip {
+    z-index: 9999 !important;
+    pointer-events: none;
+    border-radius: 12px !important;
+    background: rgba(15, 23, 42, 0.92) !important;
+    color: #e2e8f0 !important;
+    border: 1px solid rgba(148, 163, 184, 0.18) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(8px);
+    white-space: nowrap !important;
+    max-width: none !important;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* Top legend (outside map) */
+.map-legend-top {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+}
+
+.map-legend-top-title {
+    font-weight: 800;
+    color: #e2e8f0;
+    font-size: 16px;
+}
+
+.map-legend-top-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    color: rgba(226, 232, 240, 0.9);
+    font-size: 12px;
+}
+
+.map-legend-top-note {
+    color: rgba(226, 232, 240, 0.75);
+    font-size: 11px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.dot-green {
+    background: rgba(22, 163, 74, 0.95);
+}
+
+.dot-mint {
+    background: rgba(53, 218, 250, 0.9);
+}
+
+.dot-blue {
+    background: rgba(37, 99, 235, 0.95);
+}
+
+.dot-amber {
+    background: rgba(245, 158, 11, 0.95);
+}
+
+.dot-red {
+    background: rgba(220, 38, 38, 0.95);
+}
+
+/* =========================
+   Map Filters
+   ========================= */
+
+.map-filters {
+    flex: 0 0 auto;
+    margin: 12px 0 10px;
+    padding: 12px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.35);
+    backdrop-filter: blur(8px);
+}
+
+.map-filters__row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.map-filters__label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: rgba(226, 232, 240, 0.95);
+}
+
+.map-filters__meta {
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.panel--map .map-filters {
+    width: 100%;
+}
+
+/* =========================
+   Dual-Handle Price Slider
+   ========================= */
+
+.dual-range {
+    position: relative;
+    width: 100%;
+    padding: 10px 4px 0;
+    user-select: none;
+}
+
+.dual-range__track {
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.18);
+}
+
+.dual-range__range {
+    position: absolute;
+    left: var(--minPct);
+    width: calc(var(--maxPct) - var(--minPct));
+    top: 10px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.50);
+    pointer-events: none;
+}
+
+.dual-range__input {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 100%;
+    height: 20px;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    pointer-events: none;
+}
+
+.dual-range__input::-webkit-slider-runnable-track {
+    height: 8px;
+    background: transparent;
+}
+
+.dual-range__input::-webkit-slider-thumb {
+    pointer-events: auto;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(226, 232, 240, 0.95);
+    border: 2px solid rgba(37, 99, 235, 0.55);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+.dual-range__input::-moz-range-track {
+    height: 8px;
+    background: transparent;
+}
+
+.dual-range__input::-moz-range-thumb {
+    pointer-events: auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(226, 232, 240, 0.95);
+    border: 2px solid rgba(37, 99, 235, 0.55);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+.dual-range__input--max {
+    z-index: 3;
+}
+
+.dual-range__input--min {
+    z-index: 2;
+}
+
+.dual-range__values {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0.9;
+}
+
+/* =========================
+   City Page Responsive
+   ========================= */
+
+@media (max-width: 520px) {
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 980px) {
+    .split {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .panel--map {
+        height: 55vh;
+    }
+}

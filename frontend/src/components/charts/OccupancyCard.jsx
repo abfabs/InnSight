@@ -8,7 +8,6 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-import "../../styles/app.css";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 

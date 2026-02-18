@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import "../../styles/app.css";
 
 function toNum(v) {
   const n = Number(v);
@@ -15,16 +14,31 @@ function fmtPct(v) {
   return `${n.toFixed(1)}%`;
 }
 
-export default function SentimentCard({ data }) {
+function norm(v) {
+  return String(v ?? "").trim().toLowerCase();
+}
+
+export default function SentimentCard({ data, neighborhood }) {
   const [tip, setTip] = useState(null); // {label, pct, count, x, y}
 
-  // ✅ Pick the right row deterministically:
-  // 1) Prefer city-level doc (level === "city", neighborhood null)
-  // 2) Else any city-level doc
-  // 3) Else fallback to max total_reviews
   const row = useMemo(() => {
     if (!Array.isArray(data) || data.length === 0) return null;
 
+    // If API already filtered it, behave like the other cards
+    if (data.length === 1) return data[0];
+
+    const nb = norm(neighborhood);
+
+    // If a neighborhood is selected, prefer that row
+    if (nb) {
+      const nbRow =
+        data.find((r) => norm(r?.neighborhood) === nb) ||
+        data.find((r) => norm(r?.neighbourhood) === nb); // just in case spelling differs
+
+      if (nbRow) return nbRow;
+    }
+
+    // Otherwise prefer city aggregate
     const cityRow =
       data.find(
         (r) =>
@@ -34,33 +48,38 @@ export default function SentimentCard({ data }) {
 
     if (cityRow) return cityRow;
 
+    // Fallback: biggest total_reviews
     return data
       .slice()
       .sort((a, b) => toNum(b?.total_reviews) - toNum(a?.total_reviews))[0];
-  }, [data]);
+  }, [data, neighborhood]);
 
   const parts = useMemo(() => {
-    if (!row) {
-      return { total: 0, real: [], display: [] };
-    }
-
-    const total = toNum(row.total_reviews);
-
-    const positivePct = toNum(row.positive);
-    const neutralPct = toNum(row.neutral);
-    const negativePct = toNum(row.negative);
-
-    const positiveCount = toNum(row.positive_count);
-    const neutralCount = toNum(row.neutral_count);
-    const negativeCount = toNum(row.negative_count);
+    if (!row) return { total: 0, real: [], display: [] };
 
     const real = [
-      { key: "positive", label: "Positive", pct: positivePct, count: positiveCount },
-      { key: "neutral", label: "Neutral", pct: neutralPct, count: neutralCount },
-      { key: "negative", label: "Negative", pct: negativePct, count: negativeCount },
+      {
+        key: "positive",
+        label: "Positive",
+        pct: toNum(row.positive),
+        count: toNum(row.positive_count),
+      },
+      {
+        key: "neutral",
+        label: "Neutral",
+        pct: toNum(row.neutral),
+        count: toNum(row.neutral_count),
+      },
+      {
+        key: "negative",
+        label: "Negative",
+        pct: toNum(row.negative),
+        count: toNum(row.negative_count),
+      },
     ];
 
-    const MIN = 3; // percent of bar (visual only)
+    // Visual-only widening of small segments
+    const MIN = 3;
     const positives = real.find((x) => x.key === "positive") || real[0];
     const smalls = real.filter((x) => x.key !== "positive");
 
@@ -73,7 +92,7 @@ export default function SentimentCard({ data }) {
     const displayPositive = Math.max(0, 100 - usedBySmalls);
 
     return {
-      total,
+      total: toNum(row.total_reviews),
       real,
       display: [{ ...positives, displayPct: displayPositive }, ...displaySmalls],
     };

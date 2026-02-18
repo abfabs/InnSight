@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import "../../styles/app.css";
 
 function clampPct(v) {
   const n = Number(v);

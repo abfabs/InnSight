@@ -7,7 +7,7 @@ import os
 from utils.db import init_db
 from app.extensions import api
 
-# Import RESTX namespaces
+# RESTX namespaces
 from routes.cities import ns as cities_ns
 from routes.listings import ns as listings_ns
 from routes.neighborhoods import ns as neighborhoods_ns
@@ -22,20 +22,22 @@ from routes.room_type_distribution import ns as room_type_distribution_ns
 from routes.occupancy_stats import ns as occupancy_ns
 from routes.top_hosts_route import ns as top_hosts_ns
 
+from routes.chat import chat_bp
+
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # Enable CORS for React frontend
+    # CORS for React frontend
     CORS(app, resources={r"/*": {"origins": "*"}})
 
-    # Initialize cache
+    # Cache
     cache = Cache(app, config={
         "CACHE_TYPE": "SimpleCache",
-        "CACHE_DEFAULT_TIMEOUT": 300  # 5 minutes default
+        "CACHE_DEFAULT_TIMEOUT": 300  # 5 minutes
     })
-    app.cache = cache  # accessible via current_app.cache
+    app.cache = cache
 
     # Initialize database
     init_db(app)
@@ -43,7 +45,7 @@ def create_app():
     # Initialize RESTX API
     api.init_app(app)
 
-    # Register namespaces
+    # Register RESTX namespaces
     api.add_namespace(cities_ns)
     api.add_namespace(listings_ns)
     api.add_namespace(neighborhoods_ns)
@@ -58,21 +60,25 @@ def create_app():
     api.add_namespace(occupancy_ns)
     api.add_namespace(top_hosts_ns)
 
+    # Chat route
+    app.register_blueprint(chat_bp)
+
     @app.route("/")
     def health_check():
         return {
-            "status": "InnSight API LIVE ✅",
+            "status": "InnSight API LIVE ",
             "data_ready": True,
-            "cities": ["amsterdam", "prague", "rome"],
+            "cities": sorted(Config.ALLOWED_CITIES),
             "endpoints": [
                 "/api/listings?city=amsterdam",
                 "/api/neighborhood-sentiment?city=rome",
-                "/api/reviews-sentiment?city=prague&limit=100",
-                "/static/wordclouds/prague/Praha_1.png"
+                "/api/reviews-sentiment?city=lisbon&limit=100",
+                "/static/wordclouds/lisbon/Praha_1.png",
+                "/api/chat"
             ]
         }
 
-    # Serve wordcloud images
+    # Wordcloud images
     @app.route("/static/wordclouds/<city>/<filename>")
     def serve_wordcloud(city, filename):
         """Serve wordcloud PNG images from processed data"""

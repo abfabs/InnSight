@@ -1,10 +1,10 @@
 from flask import request, current_app
 from flask_restx import Namespace, Resource
 from utils.db import get_db
+from config import Config
 
 ns = Namespace("occupancy", path="/api/occupancy", description="Occupancy endpoints")
 
-ALLOWED_CITIES = {"amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"}
 ALLOWED_LEVELS = {"city", "neighborhood"}
 
 
@@ -13,7 +13,7 @@ class OccupancyResource(Resource):
     def get(self):
         """
         Query params:
-          - city: amsterdam|prague|rome|bordeaux|sicily|crete (optional)
+          - city: amsterdam|lisbon|rome|bordeaux|sicily|crete (optional)
           - level: city|neighborhood (default=city)
           - neighborhood: optional (only used when level=neighborhood)
         """
@@ -27,8 +27,8 @@ class OccupancyResource(Resource):
 
             if city:
                 city = city.lower()
-                if city not in ALLOWED_CITIES:
-                    return {"error": "City must be amsterdam, prague, crete, sicily, bordeaux or rome"}, 400
+                if city not in Config.ALLOWED_CITIES:
+                    return {"error": "City must be amsterdam, lisbon, crete, sicily, bordeaux or rome"}, 400
 
             # Normalize cache key after lowercasing
             cache_key = f"occupancy_{city}_{neighborhood}_{level}"

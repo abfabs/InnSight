@@ -105,3 +105,9 @@ importlib-resources==6.5.2
 
 # Testing
 pytest==8.0.0
+
+groq
+
+# RAG (Retrieval-Augmented Generation)
+faiss-cpu
+sentence-transformers

@@ -1,0 +1,198 @@
+/* =========================================================
+   chat.css — Chat widget, window, panel, bubbles, FAB
+   ========================================================= */
+
+/* =========================
+   Chat Panel (content inside the window)
+   ========================= */
+
+.chat-card {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    background: rgba(2, 6, 23, 0.55);
+    backdrop-filter: blur(10px);
+}
+
+.chat-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.chat-title {
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.chat-subtitle {
+    margin-top: 6px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.chat-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(15, 23, 42, 0.55);
+    font-size: 0.85rem;
+    color: rgba(226, 232, 240, 0.9);
+}
+
+/* =========================
+   Chat Body (scroll container)
+   ========================= */
+
+.chat-body {
+    flex: 1;
+    min-height: 0;
+    padding: 14px 14px 6px;
+    overflow-y: auto;
+}
+
+.chat-bubble {
+    max-width: 78%;
+    padding: 10px 12px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    line-height: 1.35;
+    font-size: 0.95rem;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.chat-bubble.user {
+    margin-left: auto;
+    background: rgba(37, 99, 235, 0.85);
+    color: white;
+    border-color: rgba(37, 99, 235, 0.35);
+}
+
+.chat-bubble.assistant {
+    margin-right: auto;
+    background: rgba(15, 23, 42, 0.75);
+    color: rgba(226, 232, 240, 0.95);
+}
+
+/* =========================
+   Chat Input
+   ========================= */
+
+.chat-input-row {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 10px;
+    padding: 12px;
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.chat-input {
+    flex: 1;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(2, 6, 23, 0.55);
+    color: rgba(226, 232, 240, 0.95);
+    padding: 10px 12px;
+    outline: none;
+}
+
+.chat-input:focus {
+    border-color: rgba(96, 165, 250, 0.6);
+}
+
+.chat-send {
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(37, 99, 235, 0.9);
+    color: white;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+.chat-send:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================
+   Chat Widget Shell (bottom-right FAB + window)
+   ========================= */
+
+.chat-widget {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9999;
+}
+
+.chat-fab {
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(37, 99, 235, 0.92);
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.chat-window {
+    width: 360px;
+    height: 520px;
+    margin-bottom: 12px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    background: rgba(2, 6, 23, 0.65);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-window-body {
+    flex: 1;
+    min-height: 0;
+}
+
+.chat-window-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.chat-window-title {
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+
+.chat-window-close {
+    background: transparent;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    color: rgba(226, 232, 240, 0.9);
+    border-radius: 10px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.chat-window-close:hover {
+    border-color: rgba(148, 163, 184, 0.35);
+}
+
+.chat-window.is-closed {
+    display: none;
+}
+
+.chat-window.is-open {
+    display: flex;
+}

@@ -2,7 +2,6 @@ import SentimentCard from "./charts/SentimentCard";
 import RoomTypesCard from "./charts/RoomTypesCard";
 import OccupancyCard from "./charts/OccupancyCard";
 import TopHostsCard from "./charts/TopHostsCard";
-import "../styles/app.css";
 
 function formatCity(name) {
   if (!name) return "";
@@ -31,7 +30,7 @@ export default function DashboardPanel({
       <div className="dash-title">{title}</div>
 
       <div className="dash-stack">
-        <SentimentCard data={sentiment} />
+        <SentimentCard data={sentiment} neighborhood={neighborhood} />
         <RoomTypesCard data={roomTypes} />
         <OccupancyCard data={occupancy} />
         <TopHostsCard data={topHosts} />

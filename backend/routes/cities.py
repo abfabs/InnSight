@@ -1,5 +1,6 @@
 from flask import current_app
 from flask_restx import Namespace, Resource
+from config import Config
 
 ns = Namespace("cities", path="/api/cities", description="City endpoints")
 
@@ -13,9 +14,10 @@ class CitiesResource(Resource):
         if cached:
             return cached, 200
 
-        result = {"cities": ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]}
+        result = {"cities": sorted(Config.ALLOWED_CITIES)}
 
         # Cache for 10 minutes
         cache.set("cities_list", result, timeout=600)
 
         return result, 200
+

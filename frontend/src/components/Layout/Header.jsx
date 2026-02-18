@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 
-export default function Header() {
+export default function Header({ onNewChat }) {
   return (
     <header className="site-header">
       <div className="site-header__inner">
@@ -18,22 +18,21 @@ export default function Header() {
         </Link>
 
         <nav className="nav">
-          <NavLink to="/" className="nav__link">
-            Home
-          </NavLink>
-          <NavLink to="/data" className="nav__link">
-            Data
-          </NavLink>
-          <NavLink to="/technology" className="nav__link">
-            Technology
-          </NavLink>
-          <NavLink to="/about" className="nav__link">
-            About
-          </NavLink>
-          <NavLink to="/contact" className="nav__link">
-            Contact
-          </NavLink>
+          <NavLink to="/" className="nav__link">Home</NavLink>
+          <NavLink to="/data" className="nav__link">Data</NavLink>
+          <NavLink to="/technology" className="nav__link">Technology</NavLink>
+          <NavLink to="/about" className="nav__link">About</NavLink>
+          <NavLink to="/contact" className="nav__link">Contact</NavLink>
         </nav>
+
+        <button
+          className="chat-new"
+          onClick={onNewChat}
+          type="button"
+          title="New chat"
+        >
+          New chat
+        </button>
       </div>
     </header>
   );

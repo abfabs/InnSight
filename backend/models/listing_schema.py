@@ -59,11 +59,11 @@ class ListingResponse(BaseModel):
 # Example data (for testing/docs)
 EXAMPLE_LISTING = {
     "listing_id": "26755",
-    "listing_name": "Central Prague Old Town Top Floor",
+    "listing_name": "Central lisbon Old Town Top Floor",
     "host_id": "113902",
     "host_name": "Daniel+Bea",
     "neighborhood": "Praha 1",
-    "city": "prague",
+    "city": "lisbon",
     "latitude": 50.08729,
     "longitude": 14.43179,
     "property_type": "Entire rental unit",

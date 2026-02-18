@@ -1,6 +1,7 @@
 from flask import request, current_app
 from flask_restx import Namespace, Resource
 from utils.db import get_db
+from config import Config
 import math
 
 ns = Namespace(
@@ -8,8 +9,6 @@ ns = Namespace(
     path="/api/neighborhood-sentiment",
     description="Neighborhood sentiment endpoints"
 )
-
-ALLOWED_CITIES = {"amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"}
 
 
 def _clean_nan(obj):
@@ -27,14 +26,14 @@ class NeighborhoodSentimentResource(Resource):
     def get(self):
         """
         Query params:
-          - city: amsterdam|prague|rome|bordeaux|sicily|crete (default=amsterdam)
+          - city: amsterdam|lisbon|rome|bordeaux|sicily|crete (default=amsterdam)
 
         Returns:
           list of neighborhood sentiment rows sorted by sentiment_mean desc
         """
         city = request.args.get("city", "amsterdam")
-        if not city or city.lower() not in ALLOWED_CITIES:
-            return {"error": "City must be amsterdam, prague, bordeaux, crete, sicily or rome"}, 400
+        if not city or city.lower() not in Config.ALLOWED_CITIES:
+            return {"error": "City must be amsterdam, lisbon, bordeaux, crete, sicily or rome"}, 400
 
         # ✅ Normalize once, use everywhere (query + cache)
         city = city.lower()

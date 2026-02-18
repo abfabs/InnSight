@@ -1,6 +1,7 @@
 from flask import request, current_app
 from flask_restx import Namespace, Resource
 from utils.db import get_db
+from config import Config
 
 ns = Namespace("analytics", path="/api/analytics", description="General analytics overview")
 
@@ -10,15 +11,16 @@ class AnalyticsResource(Resource):
     def get(self):
         """
         Query params:
-          - city: amsterdam|prague|rome|bordeaux|sicily|crete (optional)
+          - city: amsterdam|lisbon|rome|bordeaux|sicily|crete (optional)
         Returns:
           list of city overview objects (one per city),
           or one object if city is provided.
         """
         # Parse city
         city = request.args.get("city")
-        if city and city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
+        if city and city.lower() not in Config.ALLOWED_CITIES:
             return {"error": "Invalid city"}, 400
+
 
         cache_key = f"analytics_{city if city else 'all'}"
         cache = current_app.cache

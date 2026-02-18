@@ -1,11 +1,11 @@
 from flask import request
 from flask_restx import Namespace, Resource
 from utils.db import get_db
+from config import Config
 import math
 
 ns = Namespace("sentiment_summary", path="/api/sentiment-summary", description="Sentiment summary endpoints")
 
-ALLOWED_CITIES = {"amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"}
 ALLOWED_LEVELS = {"city", "neighborhood"}
 
 
@@ -37,7 +37,7 @@ class SentimentSummaryResource(Resource):
     def get(self):
         """
         Query params:
-          - city: amsterdam|prague|rome|bordeaux|sicily|crete (optional)
+          - city: amsterdam|lisbon|rome|bordeaux|sicily|crete (optional)
           - level: city|neighborhood (default=city)
           - neighborhood: optional (only used when level=neighborhood)
         """
@@ -51,7 +51,7 @@ class SentimentSummaryResource(Resource):
 
             if city:
                 city = city.lower()
-                if city not in ALLOWED_CITIES:
+                if city not in Config.ALLOWED_CITIES:
                     return {"error": "Invalid city"}, 400
 
             query = {"level": level}

@@ -139,3 +139,12 @@ backend/scripts/db_dump/
 # Mongo dumps (too large for GitHub)
 db_dump/
 *.bson
+
+# ============ RAG / VECTOR STORE ============
+# FAISS index (built locally via python -m rag.ingest)
+backend/faiss_index/
+faiss_index/
+
+# Sentence-transformers model cache
+.cache/
+

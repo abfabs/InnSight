@@ -54,7 +54,7 @@ def aggregate_top_hosts():
     print("🔄 Aggregating top hosts...")
     db.top_hosts_agg.drop()
 
-    cities = ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]
+    cities = ["amsterdam", "rome", "lisbon", "sicily", "bordeaux", "crete"]
 
     # speed
     db.listings_clean.create_index([("city", 1)])

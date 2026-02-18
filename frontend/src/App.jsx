@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { useCallback, useRef } from "react";
+
 import Landing from "./pages/Landing.jsx";
 import City from "./pages/City.jsx";
 import Data from "./pages/Data.jsx";
@@ -10,18 +12,26 @@ import Footer from "./components/Layout/Footer";
 import NotFound from "./pages/NotFound.jsx";
 
 export default function App() {
+  const chatResetRef = useRef(null);
+
+  const handleNewChat = useCallback(() => {
+    chatResetRef.current?.();
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header onNewChat={handleNewChat} />
+
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/city/:city" element={<City />} />
-        <Route path="/data" element={<Data />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/technology" element={<Technology />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/" element={<Landing chatResetRef={chatResetRef} />} />
+        <Route path="/city/:city" element={<City chatResetRef={chatResetRef} />} />
+        <Route path="/data" element={<Data chatResetRef={chatResetRef} />} />
+        <Route path="/about" element={<About chatResetRef={chatResetRef} />} />
+        <Route path="/technology" element={<Technology chatResetRef={chatResetRef} />} />
+        <Route path="/contact" element={<Contact chatResetRef={chatResetRef} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
       <Footer />
     </>
   );

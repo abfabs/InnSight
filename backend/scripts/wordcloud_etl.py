@@ -42,7 +42,7 @@ class WordCloudETL:
             'host', 'airbnb', 'booking', 'location', 'area', 'great',
             'good', 'nice', 'also', 'really', 'would', 'highly',
             'stayed', 'perfect', 'recommend', 'excellent', 'amsterdam',
-            'rome', 'prague', 'everything', 'appartment', 'restaurants',
+            'rome', 'lisbon', 'everything', 'appartment', 'restaurants',
             'molto', 'amazing', 'para', 'pour', 'sehr', 'many', 'casa',
             'roma', 'zona', 'time', 'posizione', 'todo', 'paolo', 'definitely',
             'thank', 'staff', 'next', 'super', 'hotel', 'close', 'walk',
@@ -236,7 +236,7 @@ class WordCloudETL:
 def main(cities=None):
     """Callable entrypoint for pipeline imports."""
     if cities is None:
-        cities = ['amsterdam', 'rome', 'prague', 'sicily', 'bordeaux', 'crete']
+        cities = ['amsterdam', 'rome', 'lisbon', 'sicily', 'bordeaux', 'crete']
 
     for city in cities:
         etl = WordCloudETL(city)

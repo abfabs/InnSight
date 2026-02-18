@@ -1,6 +1,7 @@
 from flask import request, current_app
 from flask_restx import Namespace, Resource
 from utils.db import get_db
+from config import Config
 
 ns = Namespace("wordcloud", path="/api/wordcloud", description="Wordcloud endpoints")
 
@@ -26,7 +27,7 @@ class WordCloudResource(Resource):
     def get(self):
         """
         Query params:
-          - city: aamsterdam|prague|rome|bordeaux|sicily|crete (default=prague)
+          - city: aamsterdam|lisbon|rome|bordeaux|sicily|crete (default=lisbon)
           - neighborhood: optional
           - limit: optional (default=20, max=100)
         Returns:
@@ -38,9 +39,9 @@ class WordCloudResource(Resource):
           }
         """
         try:
-            city = request.args.get("city", "prague")
-            if city and city.lower() not in ["amsterdam", "rome", "prague", "sicily", "bordeaux", "crete"]:
-                return {"error": "City must be amsterdam, prague, sicily, bordeaux, crete or rome"}, 400
+            city = request.args.get("city", "lisbon")
+            if city and city.lower() not in Config.ALLOWED_CITIES:
+                return {"error": "City must be amsterdam, lisbon, sicily, bordeaux, crete or rome"}, 400
 
             neighborhood = request.args.get("neighborhood")
             limit = int(request.args.get("limit", 20))
