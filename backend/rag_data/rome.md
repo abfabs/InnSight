@@ -1,48 +1,256 @@
-# Rome — Neighborhood & Travel Guide
+# Rome — Neighborhood & Travel Guide (RAG)
 
-## Overview
-Rome is the Eternal City — 2,700+ years of history layered on top of itself. Ancient ruins, Renaissance art, baroque fountains, and world-famous food all coexist in a city that manages to feel both grand and intimate. Walking through Rome is like walking through a living museum where every corner reveals another masterpiece.
+## Quick identity
+Rome is a living museum — 2,700+ years of history layered into everyday life. Ancient ruins, Renaissance masterpieces, baroque fountains, and deeply traditional cuisine coexist in one walkable city. Every neighborhood feels like a different chapter of history.
 
-## Neighborhoods
+Rome is best explored slowly and mostly on foot.
 
-### Centro Storico (Historic Center)
-The ancient heart of Rome encompassing the Pantheon, Piazza Navona, and Campo de' Fiori. Stunning architecture on every block, fantastic restaurants, and a buzzing street life. Very touristy and expensive, but the density of things to see is unmatched anywhere in the world. Best for first-time visitors with limited days.
+---
+
+## Best for
+- First-time Europe travelers
+- History and art lovers
+- Food-focused trips
+- Romantic city breaks
+- Travelers who enjoy walking
+
+## Not ideal if
+- You dislike crowds
+- You expect modern efficiency
+- You want ultra-organized public transport
+
+---
+
+## Fast neighborhood decision guide
+
+- **Maximum sights within walking distance:** Centro Storico  
+- **Romantic + lively + authentic:** Trastevere  
+- **Trendy + boutique feel near Colosseum:** Monti  
+- **Food-focused + local vibe:** Testaccio  
+- **Refined + quieter + near Vatican:** Prati  
+- **Budget + student nightlife:** San Lorenzo  
+- **Convenient transport + multicultural:** Esquilino / Termini  
+
+---
+
+## Neighborhoods (expanded)
+
+### Centro Storico
+**Vibe:** iconic Rome at every corner  
+**Best for:** short stays, first visits  
+**Highlights:**
+- Pantheon
+- Piazza Navona
+- Campo de' Fiori
+- Trevi Fountain  
+**Trade-offs:** Highest prices + dense tourism  
+**Why it works:** You can walk everywhere without public transport.
+
+---
 
 ### Trastevere
-A charming, bohemian neighborhood across the Tiber river. Cobblestone streets, ivy-covered buildings, and some of Rome's best trattorias. Lively nightlife scene popular with both locals and students. It retains a village-like atmosphere despite being very central. One of the most recommended areas for travelers seeking authentic Roman character.
+**Vibe:** cobblestones, ivy-covered buildings, trattorias  
+**Best for:** couples + nightlife seekers  
+**Highlights:**
+- Piazza Santa Maria in Trastevere
+- Authentic Roman restaurants
+- Evening bar scene  
+**Trade-offs:** No Metro line; can be loud  
+**Why it works:** Feels like old Rome with energy.
+
+---
 
 ### Monti
-Rome's oldest rione (district) and now its hippest. Independent boutiques, vintage shops, wine bars, and artisan workshops fill the streets between the Colosseum and Termini station. Great for couples and solo travelers. It feels local despite being steps from Rome's biggest attractions.
+**Vibe:** stylish but understated  
+**Best for:** solo travelers + couples  
+**Highlights:**
+- Boutique shopping
+- Wine bars
+- Proximity to Colosseum  
+**Trade-offs:** Accommodation fills quickly  
+**Why it works:** Central but less chaotic than Centro.
+
+---
 
 ### Testaccio
-A working-class neighborhood that's become Rome's undisputed food capital. The historic Testaccio Market, old slaughterhouse turned cultural center (MACRO), and some of the city's most authentic pasta and supplì. Nightlife centers around Monte Testaccio, a hill literally made of ancient Roman pottery shards, now surrounded by clubs.
+**Vibe:** authentic, food-first  
+**Best for:** culinary travelers  
+**Highlights:**
+- Testaccio Market
+- Traditional Roman trattorias
+- Monte Testaccio nightlife  
+**Trade-offs:** Slightly outside main tourist loop  
+**Why it works:** Deep Roman identity lives here.
 
-### Prati / Vatican Area
-The elegant neighborhood surrounding Vatican City. Wide, tree-lined boulevards, upscale shopping, and excellent restaurants catering to a mix of locals and pilgrims. Quieter than Centro Storico but very well-connected via Metro. Best for families and travelers wanting a refined base near St. Peter's and the Vatican Museums.
+---
+
+### Prati (Vatican Area)
+**Vibe:** elegant, residential, orderly  
+**Best for:** families + quieter stays  
+**Highlights:**
+- St. Peter’s Basilica
+- Vatican Museums
+- Shopping streets  
+**Trade-offs:** Not as atmospheric as Trastevere  
+**Why it works:** Calm base with excellent Metro access.
+
+---
 
 ### San Lorenzo
-University district near Sapienza with a young, edgy vibe. Street art, cheap eats, international cuisine, and rome's liveliest bar scene outside of Trastevere. Accommodation is significantly cheaper here. Great for budget travelers and those seeking nightlife.
+**Vibe:** student-heavy, edgy, affordable  
+**Best for:** budget + nightlife  
+**Highlights:**
+- Street art
+- Cheap eats
+- Bar culture  
+**Trade-offs:** Gritty in parts  
+**Why it works:** Cheapest central-ish option.
+
+---
 
 ### Esquilino / Termini
-The area around Rome's main train station is multicultural and sometimes chaotic, but incredibly convenient for transport. Piazza Vittorio has a great daily market. Some of Rome's best ethnic food is here — Chinese, Indian, Ethiopian, Bengali. Not the prettiest area, but practical and budget-friendly.
+**Vibe:** practical, multicultural  
+**Best for:** transport convenience  
+**Highlights:**
+- Piazza Vittorio market
+- Best ethnic food in Rome  
+**Trade-offs:** Not visually beautiful  
+**Why it works:** Perfect for early trains or short stays.
 
-## Best Time to Visit
-- **April–May**: Perfect weather (15-24°C), gardens blooming, manageable crowds. Easter brings special events.
-- **June**: Still lovely before peak summer heat. Long evenings perfect for outdoor dining.
-- **July–August**: Hot (30-35°C+), many locals leave the city. Fewer crowds at some spots, but heat can be exhausting.
-- **September–October**: Arguably the best months. Warm but not punishing, locals return, restaurants are at their best.
-- **November–March**: Cheapest season. Mild winters (5-14°C), occasional rain. Museums without crowds.
+---
 
-## Budget Tips
-- Rome is best explored on foot — most major sights are within walking distance of each other.
-- Free to enter: Pantheon, St. Peter's Basilica, all public fountains and piazzas.
-- Eat "pranzo" (lunch) at trattorias for fixed-price menus, often €10-15 for a full meal.
-- Avoid restaurants directly facing major piazzas — walk one block away for better prices and quality.
-- The Roma Pass covers 1-2 museum entries + unlimited public transit.
-- Water fountains (nasoni) are everywhere — bring a refillable bottle.
+## Must-see zones (anchor retrieval points)
 
-## Food & Drink
-Rome has a fiercely traditional food culture. The "four pastas" you must try are: Carbonara (egg, pecorino, guanciale), Cacio e Pepe (pecorino and black pepper), Amatriciana (tomato, guanciale, pecorino), and Gricia (guanciale and pecorino, no tomato). Supplì (fried rice balls) are the quintessential Roman street food. Pizza in Rome is thin and crispy (pizza al taglio). For gelato, look for places that keep it in covered metal tubs, not piled-high colorful mountains.
+Ancient Rome:
+- Colosseum
+- Roman Forum
+- Palatine Hill
 
-## Getting Around
-Walking is the best way to experience Rome. The Metro has two useful lines (A and B) that cross at Termini. Buses can be confusing but cover areas the Metro doesn't. Taxis use meters — make sure they're running. Cobblestones mean comfortable shoes are essential. E-scooter rentals are popular but the chaotic traffic requires confidence.
+Vatican:
+- St. Peter’s Basilica
+- Sistine Chapel
+- Vatican Museums
+
+Baroque Rome:
+- Trevi Fountain
+- Spanish Steps
+- Piazza Navona
+
+Hidden gems:
+- Aventine Keyhole
+- Appian Way (Via Appia Antica)
+- Jewish Ghetto
+
+---
+
+## When to visit (realistic advice)
+
+### April–May
+- Best weather (15–24°C)
+- Ideal walking conditions
+- Blooming gardens
+
+### June
+- Warm evenings
+- Still manageable crowds
+
+### July–August
+- Very hot (30–35°C+)
+- Some restaurants close in August
+- Fewer locals
+
+### September–October (top recommendation)
+- Warm but comfortable
+- Food scene strongest
+- Less oppressive heat
+
+### November–March
+- Lowest prices
+- Museum visits easier
+- Occasional rain
+
+---
+
+## Costs & budgeting
+
+Rome is moderately expensive but manageable.
+
+Ways to save:
+- Walk instead of transit
+- Eat lunch menus (€10–15)
+- Avoid restaurants facing major piazzas
+- Use free water fountains (nasoni)
+
+Free attractions:
+- Pantheon
+- St. Peter’s Basilica
+- Public piazzas + fountains
+
+Roma Pass can be useful for museum-heavy itineraries.
+
+---
+
+## Food & drink (essential Roman knowledge)
+
+The four classic Roman pastas:
+- Carbonara
+- Cacio e Pepe
+- Amatriciana
+- Gricia
+
+Other must-tries:
+- Supplì
+- Thin Roman pizza
+- Artichokes (seasonal)
+- Gelato (look for metal-covered tubs)
+
+Dining tip:
+- Avoid menus with photos
+- If someone is aggressively inviting you in, walk away
+
+---
+
+## Getting around
+
+- Walking is best
+- Metro Lines A and B intersect at Termini
+- Buses cover areas Metro doesn’t
+- Comfortable shoes are mandatory
+- Taxis are metered
+
+Traffic is chaotic — crossing streets requires confidence.
+
+---
+
+## Safety & practical notes
+
+- Safe overall
+- Watch for pickpockets in crowded areas
+- Expect uneven cobblestones
+- Stay hydrated in summer
+
+---
+
+## Suggested itineraries
+
+### 2 days
+Day 1: Colosseum → Forum → Pantheon → Trevi → evening Trastevere  
+Day 2: Vatican → Prati lunch → Monti evening  
+
+### 3 days
+Add: Capitoline Museums + Jewish Ghetto  
+
+### 4–5 days
+Add: Appian Way, Testaccio food crawl, hidden churches  
+
+---
+
+## Quick “where should I stay?” examples
+
+- First time + short stay: Centro Storico  
+- Romantic + nightlife: Trastevere  
+- Boutique + central: Monti  
+- Food-first trip: Testaccio  
+- Quiet + Vatican proximity: Prati  
+- Budget + young energy: San Lorenzo  
+- Practical + transport access: Termini  

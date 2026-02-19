@@ -1,49 +1,270 @@
-# Lisbon — Neighborhood & Travel Guide
+# Lisbon — Neighborhood & Travel Guide (RAG)
 
-## Overview
-Lisbon is one of Europe's most underrated capitals — a sun-drenched city of seven hills overlooking the Tagus river estuary. Its crumbling pastel facades, tiled buildings (azulejos), world-class food scene, and affordability compared to Western European peers make it increasingly popular. The city has a melancholic charm captured in its fado music tradition.
+## Quick identity
+Lisbon is a sunlit, hilltop capital overlooking the Tagus River — famous for azulejo tiles, vintage yellow trams, miradouros (viewpoints), seafood, and soulful fado music. It feels authentic, slightly rough-edged in places, and more affordable than many Western European capitals.
 
-## Neighborhoods
+Lisbon is built on hills — expect stairs, cobblestones, and elevation changes.
+
+---
+
+## Best for
+- First-time Europe trips
+- Food-focused travelers
+- Budget-conscious city breaks
+- Photographers (miradouros + pastel facades)
+- Nightlife lovers
+- Cultural travelers (fado, history, architecture)
+
+## Not ideal if
+- You dislike hills or walking uphill
+- You need ultra-modern infrastructure
+- You want ultra-quiet evenings (center areas can be lively)
+
+---
+
+## Fast neighborhood decision guide
+
+- **Historic + maze-like + old Lisbon charm:** Alfama  
+- **Central + easy access + flat layout:** Baixa  
+- **Nightlife-heavy + social vibe:** Bairro Alto  
+- **Elegant + cultural + refined:** Chiado  
+- **Trendy + upscale + local feel:** Príncipe Real  
+- **Monuments + riverfront sightseeing:** Belém  
+- **Authentic + multicultural + budget:** Mouraria  
+- **Views + quieter + residential:** Graça  
+
+---
+
+## Neighborhoods (expanded)
 
 ### Alfama
-Lisbon's oldest neighborhood, a labyrinth of narrow streets and stairways spilling down a hillside to the Tagus. Home to the Castelo de São Jorge and the atmospheric fado houses. Early morning visits let you hear the city wake up — church bells, tram rattles, and locals chatting from windows. Touristy around the castle but deeply authentic in its lower streets.
+**Vibe:** ancient, intimate, nostalgic  
+**Best for:** romantic stays + photographers  
+**Highlights:**
+- Castelo de São Jorge
+- Traditional fado houses
+- Miradouro de Santa Luzia  
+**Trade-offs:** Hilly and maze-like; luggage can be challenging  
+**Why it works:** The most atmospheric neighborhood in Lisbon.
+
+---
 
 ### Baixa
-The elegant downtown grid rebuilt after the 1755 earthquake. Grand plazas (Praça do Comércio, Rossio), pedestrian streets lined with shops and cafés, and the iconic Santa Justa Elevator. Very central and well-connected but can feel commercial. Great base for first-time visitors who want easy access to everything.
+**Vibe:** elegant, orderly, central  
+**Best for:** first-time visitors who want easy navigation  
+**Highlights:**
+- Praça do Comércio
+- Rossio Square
+- Santa Justa Elevator  
+**Trade-offs:** Can feel commercial  
+**Why it works:** Flatter streets + excellent transit connections.
+
+---
 
 ### Bairro Alto
-The bohemian upper quarter that transforms at night into Lisbon's party central. By day, it's a quiet neighborhood of small shops and restaurants. After 10pm, the streets fill with people hopping between tiny bars. A unique nightlife experience where the party spills outdoors. Not ideal for light sleepers.
+**Vibe:** bohemian by day, party district by night  
+**Best for:** nightlife travelers  
+**Highlights:**
+- Street bar culture after 10pm
+- Rooftop viewpoints nearby  
+**Trade-offs:** Loud at night  
+**Why it works:** Unique open-air nightlife scene.
+
+---
 
 ### Chiado
-Lisbon's most elegant neighborhood, wedged between Baixa and Bairro Alto. Historic cafés (A Brasileira, where Fernando Pessoa used to write), theaters, bookshops (Livraria Bertrand, the world's oldest), and upscale dining. Great for culture lovers. More refined than Bairro Alto, more charming than Baixa.
+**Vibe:** refined, literary, cultural  
+**Best for:** couples + culture lovers  
+**Highlights:**
+- Historic cafés (A Brasileira)
+- Livraria Bertrand (oldest bookstore)
+- Theaters and boutique shops  
+**Trade-offs:** Slightly pricier  
+**Why it works:** Perfect balance of elegance + energy.
+
+---
 
 ### Príncipe Real
-A trendy, upscale neighborhood with beautiful garden squares, concept stores, brunch spots, and a progressive atmosphere. Popular with the creative class and LGBTQ+ community. The botanical garden and Saturday organic market are highlights. Slightly removed from the tourist intensity but very walkable to everything.
+**Vibe:** trendy, progressive, upscale  
+**Best for:** design lovers + LGBTQ+ travelers  
+**Highlights:**
+- Botanical Garden
+- Concept stores
+- Saturday organic market  
+**Trade-offs:** Slightly removed from riverfront  
+**Why it works:** Modern Lisbon with a local feel.
+
+---
 
 ### Belém
-West along the river, home to the Tower of Belém, Jerónimos Monastery (UNESCO), and the unmissable Pastéis de Belém bakery (custard tarts since 1837). More spread out and requires a tram or bus to reach from the center. Worth a half-day trip. The MAAT museum of art and technology is architecturally stunning.
+**Vibe:** monumental + spacious  
+**Best for:** half-day cultural visits  
+**Highlights:**
+- Belém Tower
+- Jerónimos Monastery
+- Pastéis de Belém bakery
+- MAAT museum  
+**Trade-offs:** Requires tram/bus from center  
+**Why it works:** Portugal’s golden-age history in one place.
+
+---
 
 ### Mouraria
-Multicultural and gritty, Mouraria is where fado was actually born (not Alfama, despite popular belief). A mix of Portuguese, Chinese, Indian, and African communities. Authentic restaurants with incredibly low prices. Street art around every corner. It's being gentrified rapidly but still retains its rough, real character.
+**Vibe:** gritty, multicultural, authentic  
+**Best for:** food explorers + budget stays  
+**Highlights:**
+- Birthplace of fado
+- Cheap authentic restaurants
+- Street art  
+**Trade-offs:** Rapid gentrification + mixed aesthetics  
+**Why it works:** Feels real and lived-in.
+
+---
 
 ### Graça
-A hilltop neighborhood east of Alfama with some of the best views in Lisbon from the Miradouro da Graça and Miradouro da Senhora do Monte. More residential and less touristy. The famous Tram 28 passes through. Good for travelers wanting a quieter base with panoramic vistas.
+**Vibe:** residential + panoramic  
+**Best for:** quieter stays with views  
+**Highlights:**
+- Miradouro da Graça
+- Miradouro da Senhora do Monte
+- Tram 28 route  
+**Trade-offs:** Steep hills  
+**Why it works:** Fewer tourists but still central.
 
-## Best Time to Visit
-- **March–May**: Spring is gorgeous. 15-22°C, flowers blooming, outdoor terraces open. Easter festivities add charm.
-- **June–September**: Peak season. 25-35°C, plenty of sunshine. Festas de Lisboa in June transform the city with sardine grills and street parties. July-August can be very hot and crowded.
-- **October–November**: Mild (15-22°C), fewer tourists, great for walking. Some rain but rarely persistent.
-- **December–February**: Mild winters (8-15°C), cheapest accommodation. Can be rainy but sunny days are common.
+---
 
-## Budget Tips
-- The Lisboa Card covers unlimited transit + free/discounted museum entry — pays for itself in 1-2 days.
-- Eat at "tascas" (small local restaurants) for lunch menus under €8. Look for "prato do dia" (daily plate).
-- Ginjinha (cherry liqueur) shots are €1-2 at tiny bars throughout Baixa and Rossio.
-- Free viewpoints (miradouros) offer better views than any paid attraction.
-- Take the public Tram 28 instead of tourist tram tours — same route, fraction of the price.
+## Views (Miradouros to know)
 
-## Food & Drink
-Lisbon is a food paradise. Must-tries: Bacalhau (salted cod, prepared 365+ ways), pastéis de nata (custard tarts), bifanas (pork sandwiches), sardinhas assadas (grilled sardines, especially in June). Seafood is exceptional and affordable. Time Out Market in Cais do Sodré gathers the city's best chefs under one roof. Portuguese wine is outstanding and cheap — a good bottle of Alentejo red costs €3-5 at a supermarket.
+- Senhora do Monte (highest viewpoint)
+- Santa Catarina (sunset favorite)
+- São Pedro de Alcântara (overlooks Alfama + castle)
+- Santa Luzia (classic Alfama photo)
 
-## Nightlife
-Bairro Alto is the epicenter — dozens of tiny bars in a few blocks, everyone drinks in the streets. Cais do Sodré (Pink Street) has become the trendy club area. LX Factory hosts alternative events and markets. Fado shows in Alfama and Mouraria offer a uniquely Portuguese evening experience (look for "vadio" — amateur fado — for the most authentic performances).
+Free and often better than paid attractions.
+
+---
+
+## When to visit (realistic advice)
+
+### March–May
+- Ideal walking weather (15–22°C)
+- Blooming jacaranda trees (late spring)
+- Less crowded
+
+### June (festival month)
+- Festas de Lisboa
+- Sardine grills in streets
+- Peak atmosphere
+
+### July–August
+- Very hot (30–35°C)
+- Peak tourism
+- Strong nightlife
+
+### October–November
+- Excellent walking conditions
+- Fewer crowds
+- Occasional rain
+
+### December–February
+- Mild winters (8–15°C)
+- Cheapest stays
+- Some rainy days but many sunny breaks
+
+---
+
+## Costs & budgeting
+
+Lisbon is cheaper than Paris, Rome, or Amsterdam.
+
+Ways to save:
+- Eat lunch “prato do dia” (€7–10)
+- Drink supermarket wine (€3–5 bottles)
+- Use public transit instead of taxis
+- Use miradouros instead of paid towers
+
+Transit:
+- Viva Viagem card for metro + tram
+- Lisboa Card if visiting multiple museums
+
+---
+
+## Food & drink (core identity)
+
+Must-try:
+- Bacalhau (salt cod)
+- Pastéis de nata
+- Bifanas (pork sandwich)
+- Sardinhas assadas (especially in June)
+- Seafood rice dishes
+
+Drinks:
+- Ginjinha (cherry liqueur)
+- Vinho verde
+- Alentejo reds
+
+Food zones:
+- Time Out Market (variety under one roof)
+- Cais do Sodré (seafood + nightlife dining)
+- Mouraria (cheap authentic spots)
+
+---
+
+## Nightlife (where it actually happens)
+
+- Bairro Alto: street bar hopping
+- Cais do Sodré (Pink Street): clubs
+- LX Factory: alternative events
+- Alfama/Mouraria: fado houses
+
+For authenticity:
+- Look for “fado vadio” (amateur sessions)
+
+---
+
+## Getting around
+
+- Metro is efficient
+- Trams iconic but crowded
+- Uber is cheap compared to most Western Europe cities
+- Walking is ideal but hilly
+
+Day trips:
+- Sintra (fairytale palaces)
+- Cascais (coastal town)
+- Costa da Caparica (beaches)
+
+---
+
+## Safety & practical notes
+
+- Generally safe
+- Watch for pickpockets on Tram 28
+- Cobblestones slippery when wet
+- Expect steep climbs
+
+---
+
+## Suggested itineraries
+
+### 2 days
+Day 1: Alfama + castle + sunset miradouro  
+Day 2: Baixa → Chiado → Bairro Alto evening  
+
+### 3 days
+Add: Belém monuments + LX Factory  
+
+### 4–5 days
+Add: Sintra day trip + beach day  
+
+---
+
+## Quick “where should I stay?” examples
+
+- Romantic historic stay: Alfama  
+- Easy central access: Baixa  
+- Party-focused trip: Bairro Alto  
+- Refined culture stay: Chiado  
+- Trendy + local vibe: Príncipe Real  
+- Budget + authentic: Mouraria  
+- Views + calm: Graça  

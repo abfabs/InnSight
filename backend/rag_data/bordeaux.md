@@ -1,44 +1,217 @@
-# Bordeaux — Neighborhood & Travel Guide
+# Bordeaux — Neighborhood & Travel Guide (RAG)
 
-## Overview
-Bordeaux is elegance bottled — a UNESCO World Heritage city on the Garonne river that has shed its conservative reputation to become one of France's most dynamic destinations. Famous worldwide for its wine, Bordeaux surprises visitors with its stunning 18th-century architecture, booming food scene, and walkable river-front promenade. It's a city that feels grand without being pretentious.
+## Quick identity
+Bordeaux is elegant but relaxed — a UNESCO-listed city of honey-colored limestone, grand squares, river promenades, and world-class wine. It feels sophisticated without being intimidating. The historic center is compact and walkable, and vineyards begin just minutes outside the city.
 
-## Neighborhoods
+## Best for
+- **Wine lovers** who want access to legendary vineyards
+- **Food-focused travelers** (duck, oysters, wine bars, markets)
+- **Romantic city breaks**
+- **Architecture fans** (18th-century façades, grand boulevards)
+- **Slower, refined trips** rather than party-heavy itineraries
+
+## Not ideal if
+- You want intense nightlife
+- You need nonstop attractions every hour
+- You prefer ultra-budget destinations
+
+---
+
+## Neighborhood decision guide (fast)
+
+- **First visit, walk everywhere, classic beauty:** Centre Historique  
+- **Creative, local vibe with wine bars:** Chartrons  
+- **Budget + authentic, multicultural feel:** Saint-Michel  
+- **Modern waterfront + Cité du Vin access:** Bacalan  
+- **Longer stay, residential calm:** Saint-Genès / Nansouty  
+- **Wine estate immersion:** Pessac / Talence  
+
+---
+
+## Neighborhoods (expanded)
 
 ### Centre Historique (Saint-Pierre / Saint-Paul)
-The medieval heart of Bordeaux with narrow pedestrian streets, the magnificent Place de la Bourse and its water mirror (Miroir d'Eau), and the Saint-Pierre church. Full of wine bars, restaurants, and small boutiques. This is classic Bordeaux — golden stone buildings glowing in the afternoon sun. Touristy but undeniably beautiful.
+**Vibe:** elegant, historic, lively  
+**Best for:** first-timers, short stays, romantic weekends  
+**Trade-offs:** most touristy and slightly more expensive  
+**Highlights:**
+- Place de la Bourse + Miroir d’Eau
+- Saint-André Cathedral
+- Wine bars on narrow pedestrian streets  
+**Local tip:** golden hour transforms the limestone façades — plan river walks late afternoon.
+
+---
 
 ### Chartrons
-A former wine trading quarter north of the center, now Bordeaux's antique and art gallery district. Sunday morning brings a wonderful antiques market along the quays. Independent coffee shops, natural wine bars, and concept stores line Rue Notre Dame. Great for a more local, creative vibe. Prices are slightly lower than the historic center.
+**Vibe:** creative, wine-trade heritage, stylish but laid-back  
+**Best for:** wine lovers + couples + repeat visitors  
+**Trade-offs:** slightly removed from central landmarks (but still walkable)  
+**Highlights:**
+- Sunday antiques market along the quays
+- Rue Notre Dame boutiques + cafés
+- Natural wine bars  
+**Why stay here:** more local feel, slightly lower prices than the historic center.
+
+---
 
 ### Saint-Michel
-A multicultural, working-class neighborhood centered around the massive Saint-Michel basilica and its Sunday market (one of the biggest in southwestern France). Moroccan, Turkish, and Portuguese restaurants offer cheap, authentic meals. Raw and real — not polished for tourists but full of character. Great for budget travelers.
+**Vibe:** multicultural, authentic, gritty-charming  
+**Best for:** budget travelers, food explorers  
+**Trade-offs:** less polished, quieter at night  
+**Highlights:**
+- Saint-Michel Basilica tower
+- Sunday flea market
+- Moroccan, Turkish, Portuguese restaurants  
+**Why it works:** best cheap food in Bordeaux.
+
+---
 
 ### Bacalan / Bassins à Flot
-The former port area rapidly transforming into Bordeaux's modern quarter. Home to the Cité du Vin (wine museum), the submarine base turned cultural center, and new restaurants. A bit removed from the historic center but connected by tram. Feels like a different city — industrial-chic architecture meets waterfront living.
+**Vibe:** modern, industrial-chic, redeveloped waterfront  
+**Best for:** contemporary architecture lovers + wine museum visitors  
+**Trade-offs:** less classic Bordeaux atmosphere  
+**Highlights:**
+- Cité du Vin
+- Submarine base cultural center
+- New waterfront restaurants  
+**Good to know:** connected by tram, but not as atmospheric as the center.
+
+---
 
 ### Saint-Genès / Nansouty
-Residential neighborhoods south of the center popular with students (close to the university). Affordable accommodation, local boulangeries, and neighborhood bistros. Not touristy at all but well-connected by tram. Good for longer stays and those wanting to live like a local.
+**Vibe:** residential, student-friendly, relaxed  
+**Best for:** longer stays, remote workers  
+**Trade-offs:** fewer “tourist sights”  
+**Why stay here:** affordable accommodation + strong local life.
 
-### Pessac / Talence (Wine Estates)
-The southern suburbs blend into the Pessac-Léognan wine appellation — you can visit grand châteaux and taste world-class wines minutes from downtown. Some estates offer accommodation. Best for wine enthusiasts who want to combine city and vineyard experiences.
+---
 
-## Best Time to Visit
-- **April–June**: Lovely weather (15-25°C), vineyards turning green, fewer crowds than summer. The Bordeaux Wine Festival happens in even-numbered years in June.
-- **July–August**: Warmest (25-32°C), lively terraces, but some locals leave and restaurants can close for vacation.
-- **September–October**: Harvest season ("vendanges") — the most exciting time for wine lovers. Perfect temperatures, autumn light on the limestone buildings is spectacular.
-- **November–March**: Cooler and rainier, but the city is beautiful in low light. Excellent time for indoor wine tastings and restaurant dining. Very affordable.
+### Pessac / Talence (Wine Estates Zone)
+**Vibe:** vineyards meet suburban Bordeaux  
+**Best for:** wine immersion trips  
+**Trade-offs:** not walkable to city highlights  
+**Why special:** some estates offer accommodation — wake up surrounded by vines.
 
-## Budget Tips
-- Bordeaux is walkable — the entire city center fits in a pleasant 30-minute stroll.
-- Trams are cheap and efficient; a day pass covers unlimited rides.
-- Wine tastings at the Bar à Vin (CIVB) in the center offer prestigious wines at €2-5 per glass.
-- The Marché des Capucins (Saturday and Sunday mornings) is amazing for cheap oysters, charcuterie, and local produce.
-- Many châteaux offer free tastings with purchase — much cheaper than formal tasting tours.
-- Set lunch menus ("formule déjeuner") at even upscale restaurants are typically €15-25.
+---
 
-## Food & Drink
-Bordeaux cuisine is rich and indulgent. Canelés (small caramelized pastries with rum and vanilla) are the city's signature sweet. Entrecôte bordelaise (ribeye with red wine sauce and shallots) is the classic main. Duck in all forms — confit, magret, foie gras — dominates menus. Oysters from Arcachon Bay (30 minutes away) are fresh, cheap, and best enjoyed with white Bordeaux and sausages. The wine, of course, is extraordinary — Bordeaux produces some of the world's finest reds, but the dry whites and sweet Sauternes are equally important.
+## Wine context (important for RAG responses)
 
-## Getting Around
-The tram network covers the city well with three lines. Cycling is excellent — Bordeaux has an extensive bike-sharing system (VCub) and flat terrain. Walking is the best way to explore the center. High-speed TGV trains connect Bordeaux to Paris in just 2 hours. The airport has budget flights across Europe.
+Bordeaux produces:
+- **Left Bank reds** (Cabernet Sauvignon dominant)
+- **Right Bank reds** (Merlot dominant)
+- **Dry whites**
+- **Sweet Sauternes**
+
+Nearby appellations:
+- Médoc
+- Saint-Émilion
+- Pomerol
+- Pessac-Léognan
+
+**City wine tip:**  
+Bar à Vin (CIVB) in the center offers prestigious wines for €2–5 per glass — unbeatable value.
+
+---
+
+## When to visit (by experience)
+
+### April–June
+- Best balance of weather + fewer tourists
+- Vineyards turning green
+- Excellent terrace season
+
+### July–August
+- Hottest months (25–32°C)
+- Some restaurants close for holidays
+- Lively but less local
+
+### September–October (Harvest Season)
+- Vendanges (grape harvest)
+- Most atmospheric time for wine lovers
+- Perfect light on limestone façades
+
+### November–March
+- Cooler, rainier
+- Ideal for food + wine weekends
+- Cheapest accommodation rates
+
+---
+
+## Costs & budgeting
+
+**Bordeaux is mid-range for France.**
+
+Ways to save:
+- Walk everywhere (city center is compact)
+- Tram day passes are cheap
+- Eat at Marché des Capucins (oysters + charcuterie)
+- Choose lunch “formule” menus (€15–25)
+
+Wine tasting tips:
+- Many châteaux tastings are affordable or free with purchase
+- Independent wine bars often offer small-pour tasting flights
+
+---
+
+## Food & drink (what to try)
+
+### Local specialties
+- Canelés (caramelized rum pastry)
+- Entrecôte bordelaise (ribeye + wine sauce)
+- Duck confit or magret
+- Foie gras
+- Arcachon oysters (30 minutes away)
+
+### Where to eat by vibe
+- **Centre:** classic brasseries + elegant wine bars
+- **Chartrons:** modern wine bars + creative kitchens
+- **Saint-Michel:** cheap authentic international food
+- **Markets:** Marché des Capucins for oysters + casual eats
+
+---
+
+## Getting around
+
+- Walking is best in the historic center
+- Tram system (Lines A, B, C, D) is efficient
+- VCub bike-sharing works well (flat terrain)
+- TGV to Paris: ~2 hours
+- Airport has budget European connections
+
+**Pro tip:** Bordeaux feels small — don’t over-schedule.
+
+---
+
+## Safety & practical notes
+
+- Very safe city overall
+- Watch for pickpockets near train station and busy trams
+- Nightlife is relaxed — not rowdy
+- Restaurants book out on weekends (especially harvest season)
+
+---
+
+## Suggested itineraries
+
+### 2 days (classic)
+**Day 1:** Centre Historique → Cathedral → river walk → wine bar  
+**Day 2:** Cité du Vin → Chartrons → sunset by the Garonne  
+
+### 3 days (balanced)
+Add: Saint-Michel market + day trip to Saint-Émilion village  
+
+### 4–5 days (wine-focused)
+- Vineyard visits (Left Bank or Right Bank)
+- Arcachon Bay oysters
+- Slow Chartrons café days
+
+---
+
+## Quick “where should I stay?” examples
+
+- Romantic couple: Centre Historique  
+- Wine-first trip: Chartrons or Pessac  
+- Budget foodie: Saint-Michel  
+- Modern architecture + museums: Bacalan  
+- Long stay remote worker: Saint-Genès  
+

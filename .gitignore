@@ -148,3 +148,4 @@ faiss_index/
 # Sentence-transformers model cache
 .cache/
 
+m
